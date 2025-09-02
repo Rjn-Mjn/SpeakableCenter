@@ -20,9 +20,11 @@ passport.use(
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
+        console.log("Avatar URL:", profile.photos?.[0]?.value);
         const email = profile.emails[0].value;
         const fullName = profile.displayName;
         const googleId = profile.id;
+        const AvatarLink = profile.photos?.[0]?.value;
 
         console.log("Google OAuth profile:", { email, fullName, googleId });
 
@@ -46,6 +48,7 @@ passport.use(
             email: email,
             googleId: googleId,
             suggestedFullName: fullName,
+            AvatarLink: AvatarLink,
           });
         }
 

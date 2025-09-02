@@ -66,7 +66,7 @@ export async function getUserByID(accountId) {
 export async function getUserByID_session(accountId) {
   const pool = await getPool();
   const result = await pool.request().input("id", sql.Int, accountId).query(
-    "SELECT AccountID, Fullname, Email, GoogleID, PhoneNumber, R.RoleName, [Status] \
+    "SELECT AccountID, Fullname, Email, GoogleID, PhoneNumber, R.RoleName, [Status], AvatarLink \
       from Accounts AC JOIN Roles R ON AC.RoleID = R.RoleID \
       WHERE AccountID = @id"
   );
@@ -81,19 +81,20 @@ export async function addUser(user) {
     .input("passwordHash", sql.VarChar, user.passwordHash)
     .input("fullName", sql.NVarChar, user.fullName)
     .input("status", sql.VarChar, user.status)
-    .input("roleid", sql.Int, "1");
+    .input("roleid", sql.Int, "1")
+    .input("AvatarLink", sql.NVarChar(500), user.AvatarLink);
 
   // Add GoogleId if provided
   if (user.googleId) {
     request.input("GoogleID", sql.VarChar, user.googleId);
     await request.query(`
-      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, GoogleID)
-      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @GoogleID)
+      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, GoogleID, AvatarLink)
+      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @GoogleID, @AvatarLink)
     `);
   } else {
     await request.query(`
-      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid)
-      VALUES (@email, @passwordHash, @fullName, @status, @roleid)
+      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, AvatarLink)
+      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @AvatarLink)
     `);
   }
 }

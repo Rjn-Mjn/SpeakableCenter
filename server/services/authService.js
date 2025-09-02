@@ -59,7 +59,13 @@ export async function loginUser(email, password, googleId) {
 /* ============================================================================
    REGISTER
    ============================================================================ */
-export async function registerUser(email, password, fullName, googleid) {
+export async function registerUser(
+  email,
+  password,
+  fullName,
+  googleid,
+  AvatarLink
+) {
   if (!email || !password || !fullName) {
     return { success: false, message: "Thiếu thông tin đăng ký" };
   }
@@ -81,6 +87,7 @@ export async function registerUser(email, password, fullName, googleid) {
     fullName,
     status: "pending",
     googleId: googleid, // Use googleId (uppercase I) to match the database function
+    AvatarLink: AvatarLink,
   });
   user = await getUserByEmail(email);
 

@@ -129,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.googleId = null;
   window.googleEmail = null;
   window.suggestedFullName = null;
+  window.AvatarLink = null;
 
   const registerButton = document.getElementById("register-button");
   if (registerButton) {
@@ -142,6 +143,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.log("Google ID:", window.googleId);
       console.log("Google Email:", window.googleEmail);
       console.log("Google Sugested Fullname: ", window.suggestedFullName);
+      console.log("AvatarLink: ", window.AvatarLink);
+
+      if (!window.AvatarLink) {
+        window.AvatarLink = "https://audiox.space/preview/avatar.png";
+      }
 
       const name = document.getElementById("username").value.trim();
       const passwordRegister = document
@@ -162,6 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         passwordRegister: passwordRegister,
         passwordConfirm: passwordConfirm,
         googleId: window.googleId,
+        AvatarLink: window.AvatarLink,
       });
 
       const res = await fetch("/api/register", {
@@ -172,6 +179,7 @@ document.addEventListener("DOMContentLoaded", function () {
           password: passwordRegister,
           fullName: name,
           googleid: window.googleId,
+          AvatarLink: AvatarLink,
         }),
       });
 

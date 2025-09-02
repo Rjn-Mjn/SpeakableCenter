@@ -13,6 +13,7 @@ import http from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+// import path from "path";
 
 // Import routes
 import loginRouter from "./routes/login.js";
@@ -242,6 +243,19 @@ app.use(
     lastModified: process.env.NODE_ENV === "production",
     index: false, // We'll handle index.html separately
     redirect: false,
+    setHeaders: (res, path) => {
+      // Cho phép ảnh load từ domain khác
+      res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    },
+  })
+);
+
+app.use(
+  "/preview",
+  express.static(path.join(__dirname, "../client/public/preview"), {
+    setHeaders: (res) => {
+      res.setHeader("Cross-Origin-Resource-Policy", "cross-origin");
+    },
   })
 );
 
@@ -328,6 +342,7 @@ app.get("/auth/google/callback", (req, res, next) => {
           email: info.email,
           googleId: info.googleId,
           suggestedFullName: info.suggestedFullName,
+          AvatarLink: info.AvatarLink,
         };
         console.log("redirecting to login/register page (pending)");
         return res.redirect("/login?registration_required=true");

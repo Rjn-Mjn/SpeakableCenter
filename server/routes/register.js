@@ -4,10 +4,16 @@ import { registerUser } from "../services/authService.js";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const { email, password, fullName, googleid } = req.body;
+  const { email, password, fullName, googleid, AvatarLink } = req.body;
   console.log(email + " & " + password + " & " + fullName + " & " + googleid);
 
-  const result = await registerUser(email, password, fullName, googleid);
+  const result = await registerUser(
+    email,
+    password,
+    fullName,
+    googleid,
+    AvatarLink
+  );
   if (result.success) {
     const user = result.user;
     req.login(user, (err) => {

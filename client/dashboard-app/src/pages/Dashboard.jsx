@@ -6,62 +6,7 @@ export default function Dashboard() {
   // frontend
 
   return (
-    //   <h1>Dashboard Page</h1>
-    <AnimatedContent
-      className="main"
-      distance={160}
-      direction="vertical"
-      reverse={false}
-      duration={0.7}
-      ease="power3.out"
-      initialOpacity={0}
-      animateOpacity
-      initialScale={0.1}
-      scale={0.1}
-      threshold={0.2}
-      delay={0}
-    >
-      <nav class="navbar">
-        <div class="nav-logo">
-          <img src="../assets/Images/Logo.png" alt="Speakable Logo" />
-        </div>
-        <div class="nav-links">
-          <a href="/" class="nav-link">
-            Home
-          </a>
-          <a href="#" class="nav-link">
-            My Courses
-          </a>
-          <a href="#" class="nav-link">
-            Progress
-          </a>
-          <a href="#" class="nav-link">
-            Settings
-          </a>
-          {/* <a
-            href=""
-            class="logout-btn"
-            onClick={(e) => {
-              e.preventDefault();
-              handleLogout();
-            }}
-          >
-            Logout
-          </a> */}
-
-          <form
-            class="nav-link"
-            id="logoutForm"
-            action="/api/logout"
-            method="POST"
-          >
-            <button class="logout-btn" type="submit">
-              Sign out
-            </button>
-          </form>
-        </div>
-      </nav>
-
+    <div>
       <div class="dashboard-container">
         <div class="welcome-card">
           <h1 class="welcome-title">Welcome to Your Dashboard!</h1>
@@ -126,7 +71,24 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
-    </AnimatedContent>
+    </div>
+    // <h1>Dashboard Page</h1>
+    // <AnimatedContent
+    //   className="main"
+    //   distance={160}
+    //   direction="vertical"
+    //   reverse={false}
+    //   duration={0.7}
+    //   ease="power3.out"
+    //   initialOpacity={0}
+    //   animateOpacity
+    //   initialScale={0.1}
+    //   scale={0.1}
+    //   threshold={0.2}
+    //   delay={0}
+    // >
+
+    // </AnimatedContent>
   );
 }
 // eslint-disable-next-line no-unused-vars

@@ -62,6 +62,7 @@ async function handleOAuthReturn() {
         window.googleEmail = result.data.email;
         window.googleId = result.data.googleId;
         window.suggestedFullName = result.data.suggestedFullName;
+        window.AvatarLink = result.data.AvatarLink;
 
         console.log("Google auth data loaded for registration:", {
           email: window.googleEmail,

@@ -1,0 +1,20 @@
+.float-menu {
+  /* margin: 0.8rem; */
+  /* position: absolute; */
+  background-color: white;
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 10px; */
+  /* height: auto; */
+  transition: 0.3s ease;
+  padding: 0.8rem;
+}
+
+.float-menu .lucide {
+  width: 3rem;
+  height: auto;
+  color: black;
+  stroke-width: 2.5;
+}
