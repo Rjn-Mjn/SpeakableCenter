@@ -1,0 +1,66 @@
+nohup: ignoring input
+[dotenv@17.2.1] injecting env (12) from .env -- tip: ⚙️  enable debug logging with { debug: true }
+[dotenv@17.2.1] injecting env (0) from .env -- tip: ⚙️  override existing env vars with { override: true }
+[dotenv@17.2.1] injecting env (0) from ../.env -- tip: ⚙️  enable debug logging with { debug: true }
+🔒 HTTPS Server running at https://localhost:443
+📁 New structure active - serving from client/server folders
+🚀 Ready for production!
+↗️  HTTP Redirect server running at http://localhost:80
+(node:446971) [DEP0123] DeprecationWarning: Setting the TLS ServerName to an IP address is not permitted by RFC 6066. This will be ignored in a future version.
+(Use `node --trace-deprecation ...` to show where the warning was created)
+✅ Connected to SQL Server database
+✅ Database connection test successful
+Error: {
+  message: 'Not Found - /services/main.js:1',
+  stack: undefined,
+  url: '/services/main.js:1',
+  method: 'GET',
+  ip: '2600:1900:0:3501::1600'
+}
+Google OAuth profile: {
+  email: 'phulgttv00172@gmail.com',
+  fullName: 'Gia Thiên Phú Lê',
+  googleId: '108244250518547056392'
+}
+User found, proceeding with login
+Google OAuth profile: {
+  email: 'phulgttv00172@gmail.com',
+  fullName: 'Gia Thiên Phú Lê',
+  googleId: '108244250518547056392'
+}
+User found, proceeding with login
+Error: {
+  message: 'Not Found - /media/system/js/core.js',
+  stack: undefined,
+  url: '/media/system/js/core.js',
+  method: 'GET',
+  ip: '34.135.90.8'
+}
+Error: {
+  message: 'Not Found - /wp-includes/js/jquery/jquery.js',
+  stack: undefined,
+  url: '/wp-includes/js/jquery/jquery.js',
+  method: 'GET',
+  ip: '34.135.90.8'
+}
+Error: {
+  message: 'Not Found - /.env',
+  stack: undefined,
+  url: '/.env',
+  method: 'GET',
+  ip: '45.141.215.150'
+}
+Error: {
+  message: 'Not Found - /',
+  stack: undefined,
+  url: '/',
+  method: 'POST',
+  ip: '45.141.215.150'
+}
+Error: {
+  message: 'Not Found - /vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php',
+  stack: undefined,
+  url: '/vendor/phpunit/phpunit/src/Util/PHP/eval-stdin.php',
+  method: 'GET',
+  ip: '45.141.215.150'
+}

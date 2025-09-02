@@ -1,0 +1,176 @@
+/* ============================================================================
+   SECTION 4: IELTS PRACTICE SECTION
+   ============================================================================ */
+
+#ai-writing {
+  background: var(--color-base);
+  min-height: 100vh;
+  padding: 6rem 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.AI-content {
+  display: flex;
+  align-items: center;
+  max-width: 1400px;
+  width: 100%;
+  gap: 3rem;
+  padding: 2rem;
+}
+
+.BackgroundCurved-AI {
+  position: absolute;
+  height: 100%;
+  opacity: 0;
+}
+
+/* ============================================================================
+   VISUAL SECTION (LEFT SIDE)
+   ============================================================================ */
+
+.AI-visual {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid black; */
+}
+
+.AI-interface {
+  width: 100%;
+  height: auto;
+  max-width: 700px;
+  border-radius: 24px;
+  /* box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15); */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.AI-interface:hover {
+  transform: translateY(-10px);
+  /* box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2); */
+}
+
+/* ============================================================================
+   TEXT SECTION (RIGHT SIDE)
+   ============================================================================ */
+
+.AI-text {
+  flex: 0 0 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  padding-left: 2rem;
+  /* border: 1px solid black; */
+}
+
+.AI-title {
+  font-family: var(--font-inter, "Inter", "Inter-Local", ui-sans-serif, system-ui, sans-serif);
+  font-size: 3.5rem;
+  font-weight: 900;
+  color: #2c3e50;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 9.6px rgba(0, 0, 0, 0.25);
+}
+
+.AI-title .highlight {
+  /* background: linear-gradient(135deg, #00d4aa 0%, #00b894 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  position: relative; */
+  color: #55c0ad;
+}
+
+.AI-description {
+  font-family: var(--font-inter, "Inter", "Inter-Local", ui-sans-serif, system-ui, sans-serif);
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: #5a6c7d;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+  max-width: 500px;
+}
+
+/* ============================================================================
+   CTA BUTTON
+   ============================================================================ */
+
+.cta-button-fourth {
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  background: linear-gradient(135deg, #64d5c0 0%, #52bca9 100%);
+  color: white;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  font-family: var(--font-inter, "Inter", "Inter-Local", ui-sans-serif, system-ui, sans-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px #52bca9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  width: fit-content;
+}
+
+.cta-button-fourth:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 35px #52bca9;
+  background: linear-gradient(135deg, #63c8b6 0%, #52bca9 100%);
+}
+
+.cta-button-fourth:active {
+  transform: translateY(-1px);
+}
+
+.cta-button-fourth svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease;
+}
+
+.cta-button-fourth:hover svg {
+  transform: translateX(5px);
+}
+
+/* ============================================================================
+   ANIMATIONS
+   ============================================================================ */
+
+.AI-visual,
+.AI-text {
+  /* opacity: 0; */
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.AI-visual.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.2s;
+}
+
+.AI-text.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.4s;
+}
+
+/* Add a subtle parallax effect on scroll */
+@media (prefers-reduced-motion: no-preference) {
+  .AI-interface {
+    transition: transform 0.3s ease;
+  }
+
+  .AI-interface:hover {
+    transform: translateY(-10px) scale(1.02);
+  }
+}

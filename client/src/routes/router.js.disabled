@@ -1,0 +1,85 @@
+/**
+ * Client-side Router
+ * Handles navigation between pages
+ */
+
+class Router {
+    constructor() {
+        this.routes = new Map();
+        this.currentRoute = null;
+        this.init();
+    }
+
+    init() {
+        // Register routes
+        this.register('/', '/src/pages/HomePage.html', 'Home');
+        this.register('/login', '/src/pages/LoginPage.html', 'Login');
+        this.register('/register', '/src/pages/LoginPage.html', 'Register');
+        this.register('/dashboard', '/src/pages/Dashboard.html', 'Dashboard');
+
+        // Handle browser navigation
+        window.addEventListener('popstate', () => this.handleRoute());
+        
+        // Handle initial route
+        this.handleRoute();
+    }
+
+    register(path, file, title) {
+        this.routes.set(path, { file, title });
+    }
+
+    navigate(path) {
+        window.history.pushState({}, '', path);
+        this.handleRoute();
+    }
+
+    async handleRoute() {
+        const path = window.location.pathname;
+        const route = this.routes.get(path) || this.routes.get('/');
+
+        // Update page title
+        document.title = `Speakable - ${route.title}`;
+
+        // Load page content
+        if (this.currentRoute !== route.file) {
+            await this.loadPage(route.file);
+            this.currentRoute = route.file;
+        }
+    }
+
+    async loadPage(file) {
+        try {
+            const response = await fetch(file);
+            if (!response.ok) throw new Error('Page not found');
+            
+            const html = await response.text();
+            
+            // Parse and inject content
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            // Update body content
+            const content = doc.querySelector('body').innerHTML;
+            document.body.innerHTML = content;
+            
+            // Re-run scripts
+            const scripts = doc.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                newScript.text = oldScript.text;
+                if (oldScript.src) newScript.src = oldScript.src;
+                document.body.appendChild(newScript);
+            });
+        } catch (error) {
+            console.error('Error loading page:', error);
+            document.body.innerHTML = '<h1>404 - Page Not Found</h1>';
+        }
+    }
+}
+
+// Initialize router
+const router = new Router();
+
+// Export for use in other modules
+window.router = router;
+export default router;

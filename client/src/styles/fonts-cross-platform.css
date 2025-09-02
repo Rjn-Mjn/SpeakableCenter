@@ -1,0 +1,200 @@
+/*
+ * Cross-Platform Font Loading Solution
+ * Handles Windows, macOS, and Linux differences
+ * Based on your observation: Pacifico works everywhere, Inter only on Linux, Segoe only on Windows
+ */
+
+/* =================================================================
+   WINDOWS-SPECIFIC FONTS
+   ================================================================= */
+
+/* Windows has Segoe fonts built-in */
+.platform-windows {
+  --font-primary: "Inter", "Inter-Local", "Segoe UI", "Calibri", "Arial", sans-serif;
+  --font-handwriting: "Segoe Print V1", "Segoe-Print-Local", "Segoe Print", 
+                      "Segoe UI", "Brush Script MT", cursive;
+  --font-decorative: "Pacifico", "Pacifico-Local", "Brush Script MT", 
+                     "Lucida Handwriting", cursive;
+}
+
+/* =================================================================
+   MACOS-SPECIFIC FONTS  
+   ================================================================= */
+
+/* macOS has excellent system fonts */
+.platform-macos {
+  --font-primary: "Inter", "Inter-Local", -apple-system, BlinkMacSystemFont, 
+                  "SF Pro Text", "SF Pro Display", "Helvetica Neue", sans-serif;
+  --font-handwriting: "Pacifico", "Pacifico-Local", "Marker Felt", "Bradley Hand", 
+                      "Apple Chancery", "Zapf-Chancery", cursive;
+  --font-decorative: "Pacifico", "Pacifico-Local", "Brush Script MT", 
+                     "Apple Chancery", cursive;
+}
+
+/* =================================================================
+   LINUX-SPECIFIC FONTS
+   ================================================================= */
+
+/* Linux has good open-source alternatives */
+.platform-linux {
+  --font-primary: "Inter", "Inter-Local", "Ubuntu", "Roboto", "Liberation Sans", 
+                  "DejaVu Sans", "Noto Sans", sans-serif;
+  --font-handwriting: "Pacifico", "Pacifico-Local", "Kalam", "Comic Sans MS", 
+                      "Liberation Serif", "DejaVu Serif", cursive;
+  --font-decorative: "Pacifico", "Pacifico-Local", "URW Chancery L", 
+                     "Liberation Serif", cursive;
+}
+
+/* =================================================================
+   AUTOMATIC OS DETECTION (CSS-based)
+   ================================================================= */
+
+/* Windows Detection */
+@supports (-ms-ime-align: auto) {
+  :root {
+    --font-inter: "Inter", "Inter-Local", "Segoe UI", "Calibri", Arial, sans-serif !important;
+    --font-pacifico: "Pacifico", "Pacifico-Local", "Brush Script MT", cursive !important;
+    --font-handwriting: "Kalam", "Segoe Print", "Comic Sans MS", 
+                        "Segoe UI", cursive !important;
+  }
+}
+
+/* macOS Detection */
+@supports (-webkit-backdrop-filter: blur(1px)) {
+  :root {
+    --font-inter: "Inter", "Inter-Local", -apple-system, BlinkMacSystemFont, 
+                  "SF Pro Text", "Helvetica Neue", sans-serif !important;
+    --font-pacifico: "Pacifico", "Pacifico-Local", "Marker Felt", "Bradley Hand", 
+                     "Apple Chancery", cursive !important;
+    --font-handwriting: "Kalam", "Marker Felt", "Bradley Hand", 
+                        "Apple Chancery", cursive !important;
+  }
+}
+
+/* =================================================================
+   FONT LOADING STATES FOR EACH OS
+   ================================================================= */
+
+/* When Google Fonts fail, use appropriate OS fallbacks */
+.fonts-fallback.platform-windows {
+  --font-inter: "Inter-Local", "Segoe UI", "Calibri", Arial, sans-serif !important;
+  --font-pacifico: "Pacifico-Local", "Brush Script MT", "Segoe Print", cursive !important;
+}
+
+.fonts-fallback.platform-macos {
+  --font-inter: "Inter-Local", -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif !important;
+  --font-pacifico: "Pacifico-Local", "Marker Felt", "Bradley Hand", cursive !important;
+}
+
+.fonts-fallback.platform-linux {
+  --font-inter: "Inter-Local", "Ubuntu", "Roboto", "Liberation Sans", sans-serif !important;
+  --font-pacifico: "Pacifico-Local", "Liberation Serif", "DejaVu Serif", cursive !important;
+}
+
+/* =================================================================
+   EMERGENCY SYSTEM-ONLY FALLBACKS
+   ================================================================= */
+
+/* When even local fonts fail (very rare), use only system fonts */
+.fonts-system-only.platform-windows {
+  --font-inter: "Segoe UI", "Calibri", Arial, sans-serif !important;
+  --font-pacifico: "Brush Script MT", "Segoe Print", "Comic Sans MS", cursive !important;
+}
+
+.fonts-system-only.platform-macos {
+  --font-inter: -apple-system, "SF Pro Text", "Helvetica Neue", sans-serif !important;
+  --font-pacifico: "Marker Felt", "Bradley Hand", "Apple Chancery", cursive !important;
+}
+
+.fonts-system-only.platform-linux {
+  --font-inter: "Ubuntu", "Roboto", "Liberation Sans", "DejaVu Sans", sans-serif !important;
+  --font-pacifico: "Liberation Serif", "DejaVu Serif", "URW Chancery L", cursive !important;
+}
+
+/* =================================================================
+   UTILITY CLASSES FOR SPECIFIC FONTS
+   ================================================================= */
+
+.font-inter-guaranteed {
+  font-family: "Inter-Local", "Segoe UI", -apple-system, "Ubuntu", Arial, sans-serif;
+}
+
+.font-pacifico-guaranteed {
+  font-family: "Pacifico-Local", "Brush Script MT", "Marker Felt", "Liberation Serif", cursive;
+}
+
+.font-handwriting-guaranteed {
+  font-family: "Kalam", "Segoe Print", "Marker Felt", 
+               "Comic Sans MS", cursive;
+}
+
+/* =================================================================
+   UNIVERSAL HYBRID VARIABLES FOR MAXIMUM COMPATIBILITY
+   ================================================================= */
+
+/* These variables work on ALL platforms and are loaded by your font-loader.js */
+:root {
+  /* Universal Inter stack with comprehensive fallbacks */
+  --font-inter-hybrid: "Inter", "Inter-Local", 
+                       /* Windows */ "Segoe UI", "Calibri", 
+                       /* macOS */ -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", 
+                       /* Linux */ "Ubuntu", "Roboto", "Liberation Sans", "DejaVu Sans", 
+                       /* Universal */ ui-sans-serif, system-ui, Arial, sans-serif;
+                       
+  /* Universal Pacifico stack with comprehensive fallbacks */
+  --font-pacifico-hybrid: "Pacifico", "Pacifico-Local", 
+                          /* Windows */ "Brush Script MT", "Lucida Handwriting", 
+                          /* macOS */ "Apple Chancery", "Zapf-Chancery", "Marker Felt", 
+                          /* Linux */ "URW Chancery L", "Liberation Serif", 
+                          /* Universal */ "Comic Sans MS", cursive;
+                          
+  /* Universal handwriting font stack with Kalam as primary */
+  --font-handwriting-hybrid: "Kalam", 
+                             /* Windows */ "Segoe Print", "Comic Sans MS", 
+                             /* macOS */ "Marker Felt", "Bradley Hand", "Apple Chancery", 
+                             /* Linux */ "Liberation Sans", 
+                             /* Universal */ "Chalkduster", "Trattatello", cursive;
+  
+  /* Hero Banner Decorative Fonts with Cross-Platform Fallbacks */
+  --font-gasoek: "Gasoek One", 
+                 /* Windows */ "Impact", "Arial Black", "Segoe UI", 
+                 /* macOS */ "Helvetica Neue", "Arial Black", 
+                 /* Linux */ "Liberation Sans", "Ubuntu", 
+                 /* Universal */ "Arial", sans-serif;
+                 
+  --font-archivo-black: "Archivo Black", 
+                        /* Windows */ "Arial Black", "Impact", 
+                        /* macOS */ "Helvetica Neue", "Arial Black", 
+                        /* Linux */ "Liberation Sans", "DejaVu Sans", 
+                        /* Universal */ "Arial", sans-serif;
+                        
+  --font-shrikhand: "Shrikhand", 
+                    /* Windows */ "Brush Script MT", "Lucida Handwriting", 
+                    /* macOS */ "Apple Chancery", "Marker Felt", 
+                    /* Linux */ "Liberation Serif", 
+                    /* Universal */ cursive;
+                    
+  --font-akshar: "Akshar", 
+                 /* Windows */ "Segoe UI", "Calibri", 
+                 /* macOS */ "SF Pro Text", "Helvetica Neue", 
+                 /* Linux */ "Ubuntu", "Liberation Sans", 
+                 /* Universal */ ui-sans-serif, Arial, sans-serif;
+                 
+  --font-sofia-condensed: "Sofia Sans Condensed", 
+                          /* Windows */ "Arial Narrow", "Segoe UI", 
+                          /* macOS */ "Helvetica Neue Condensed", "Arial Narrow", 
+                          /* Linux */ "Liberation Sans Narrow", "Ubuntu Condensed", 
+                          /* Universal */ "Helvetica Condensed", sans-serif;
+                          
+  --font-syncopate: "Syncopate", 
+                    /* Windows */ "Courier New", "Consolas", 
+                    /* macOS */ "SF Mono", "Monaco", 
+                    /* Linux */ "Liberation Mono", "DejaVu Sans Mono", 
+                    /* Universal */ monospace;
+                    
+  --font-tilt-warp: "Tilt Warp", 
+                    /* Windows */ "Segoe UI", "Arial", 
+                    /* macOS */ "SF Pro Text", "Helvetica Neue", 
+                    /* Linux */ "Ubuntu", "Liberation Sans", 
+                    /* Universal */ ui-sans-serif, sans-serif;
+}

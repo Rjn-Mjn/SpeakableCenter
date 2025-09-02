@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Speakable Test Results</title>
+    <style>
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1 {
+            color: #333;
+            border-bottom: 3px solid #5eb9a9;
+            padding-bottom: 10px;
+        }
+        .test-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .success {
+            color: #22c55e;
+            font-weight: bold;
+        }
+        .error {
+            color: #ef4444;
+            font-weight: bold;
+        }
+        .warning {
+            color: #f59e0b;
+            font-weight: bold;
+        }
+        .test-item {
+            padding: 8px;
+            margin: 5px 0;
+            background: #f9f9f9;
+            border-left: 4px solid #ddd;
+        }
+        .test-item.pass {
+            border-left-color: #22c55e;
+        }
+        .test-item.fail {
+            border-left-color: #ef4444;
+        }
+        iframe {
+            width: 100%;
+            height: 600px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+        }
+        .resource-list {
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Speakable Website Test Results</h1>
+    
+    <div class="test-section">
+        <h2>📡 Server Status</h2>
+        <div id="server-status">Checking...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>📄 Page Load Tests</h2>
+        <div id="page-tests">Testing pages...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>🎨 Resource Loading</h2>
+        <div id="resource-tests" class="resource-list">Checking resources...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>⚠️ Console Errors</h2>
+        <div id="console-errors">Monitoring for errors...</div>
+    </div>
+
+    <div class="test-section">
+        <h2>🖼️ Live Preview</h2>
+        <p>Homepage Preview:</p>
+        <iframe id="preview" src="http://localhost:3000" sandbox="allow-same-origin allow-scripts allow-forms"></iframe>
+    </div>
+
+    <script>
+        const BASE_URL = 'http://localhost:3000';
+        
+        // Test server status
+        async function testServer() {
+            const statusDiv = document.getElementById('server-status');
+            try {
+                const response = await fetch(`${BASE_URL}/api/hello`);
+                const data = await response.json();
+                statusDiv.innerHTML = `<span class="success">✅ Server is running!</span> - ${data.message}`;
+            } catch (error) {
+                statusDiv.innerHTML = `<span class="error">❌ Server is not responding!</span> - ${error.message}`;
+            }
+        }
+
+        // Test pages
+        async function testPages() {
+            const pages = ['/', '/login', '/register'];
+            const testDiv = document.getElementById('page-tests');
+            let html = '';
+            
+            for (const page of pages) {
+                try {
+                    const response = await fetch(`${BASE_URL}${page}`);
+                    const status = response.status;
+                    const statusClass = status === 200 ? 'pass' : 'fail';
+                    const icon = status === 200 ? '✅' : '❌';
+                    html += `<div class="test-item ${statusClass}">${icon} ${page} - Status: ${status}</div>`;
+                } catch (error) {
+                    html += `<div class="test-item fail">❌ ${page} - Error: ${error.message}</div>`;
+                }
+            }
+            testDiv.innerHTML = html;
+        }
+
+        // Test critical resources
+        async function testResources() {
+            const resources = [
+                '/styles/Intro/Style.css',
+                '/styles/wireframe.css',
+                '/styles/login.css',
+                '/styles/animation-fixes.css',
+                '/services/main.js',
+                '/services/LoginManagement.js',
+                '/services/login.js',
+                '/services/font-loader.js',
+                '/assets/Images/Logo.png',
+                '/favicon.ico'
+            ];
+            
+            const testDiv = document.getElementById('resource-tests');
+            let html = '<table style="width:100%"><tr><th>Resource</th><th>Status</th></tr>';
+            
+            for (const resource of resources) {
+                try {
+                    const response = await fetch(`${BASE_URL}${resource}`, { method: 'HEAD' });
+                    const status = response.status;
+                    const statusClass = status === 200 ? 'success' : 'error';
+                    const icon = status === 200 ? '✅' : '❌';
+                    html += `<tr><td>${resource}</td><td class="${statusClass}">${icon} ${status}</td></tr>`;
+                } catch (error) {
+                    html += `<tr><td>${resource}</td><td class="error">❌ Error</td></tr>`;
+                }
+            }
+            html += '</table>';
+            testDiv.innerHTML = html;
+        }
+
+        // Monitor iframe for errors
+        function monitorIframe() {
+            const iframe = document.getElementById('preview');
+            const errorsDiv = document.getElementById('console-errors');
+            
+            iframe.onload = function() {
+                try {
+                    // Try to access iframe content (may be blocked by CORS)
+                    const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                    errorsDiv.innerHTML = '<span class="success">✅ Page loaded without blocking errors</span>';
+                } catch (e) {
+                    errorsDiv.innerHTML = '<span class="warning">⚠️ Cannot access iframe content due to security policies (this is normal)</span>';
+                }
+            };
+            
+            iframe.onerror = function(error) {
+                errorsDiv.innerHTML = `<span class="error">❌ Error loading page: ${error}</span>`;
+            };
+        }
+
+        // Run all tests
+        async function runTests() {
+            await testServer();
+            await testPages();
+            await testResources();
+            monitorIframe();
+        }
+
+        // Auto-refresh tests every 10 seconds
+        runTests();
+        setInterval(runTests, 10000);
+    </script>
+</body>
+</html>

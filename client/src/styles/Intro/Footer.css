@@ -1,0 +1,154 @@
+/* ============================================================================
+   SECTION 6: FOOTER SECTION
+   ============================================================================ */
+
+#footer {
+  background-color: #f9f8f4;
+  background: linear-gradient(
+    0deg,
+    #3aa995 37.98%,
+    #87c9bb 63.94%,
+    #f9f8f4 100%
+  );
+
+  color: var(--color-white);
+  padding: 4rem 2rem;
+  min-height: 100vh;
+  /* border: 1px solid black; */
+}
+
+.footer-content {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  /* border: 1px solid black; */
+}
+
+.footer-bottom {
+  /* border: 1px solid black; */
+  display: flex;
+}
+
+/* ============================================================================
+   FOOTER LOGO
+   ============================================================================ */
+
+.footer-logo {
+  width: auto;
+  height: auto;
+}
+
+.footer-logo .logo {
+  width: 25rem;
+  filter: drop-shadow(0 10px 30px rgba(85, 198, 183, 0.326));
+}
+
+/* ============================================================================
+   FOOTER INFO
+   ============================================================================ */
+
+.footer-info {
+  /* border: 1px solid black; */
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-title {
+  font-family: var(--font-inter, "Inter", "Inter-Local", ui-sans-serif, system-ui, sans-serif);
+  font-size: 3rem;
+  font-weight: 900;
+}
+
+.footer-description {
+  margin-left: 1rem;
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+/* ============================================================================
+   FOOTER LINKS
+   ============================================================================ */
+
+.footer-links {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.footer-social {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.footer-social a {
+  text-decoration-line: none;
+  display: flex;
+  width: auto;
+  height: auto;
+  transition: all 0.3s ease;
+
+  /* background-color: #f6fffd; */
+}
+
+.footer-social a img {
+  width: 4rem;
+  height: auto;
+  /* opacity: 0.2; */
+}
+
+/* ============================================================================
+   BUTTON
+   ============================================================================ */
+
+.buttons {
+  /* border: 1px solid black; */
+}
+.buttons .footer-cta {
+  background: var(--color-black);
+  color: var(--color-white);
+  border: none;
+  padding: 0.5rem 0.5rem 0.5rem 3rem;
+  border-radius: 2rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.64px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  justify-content: space-between;
+}
+
+.footer-cta img {
+  background-color: #dfdfdf;
+  border-radius: 100%;
+  padding: 0.2rem;
+}
+
+.buttons .footer-cta.secondary {
+  background-color: #5ecbb7;
+  border: 3px solid #78e8d3;
+}
+
+.footer-cta.secondary img {
+  background-color: black;
+}
+
+.buttons .footer-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.social-link:hover {
+  transform: translateY(-2px);
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.2));
+}

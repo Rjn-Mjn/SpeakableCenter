@@ -1,0 +1,503 @@
+/* 
+ * CROSS-BROWSER ANIMATION FIXES
+ * Ensures animations work on all devices and browsers
+ * Especially for Windows, Safari, and older browsers
+ */
+
+/* ============================================================================
+   VENDOR PREFIX KEYFRAMES
+   ============================================================================ */
+
+/* SlideUp Animation - For login popup */
+@-webkit-keyframes slideUp {
+  0% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  60% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-moz-keyframes slideUp {
+  0% {
+    -moz-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  60% {
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+  100% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@-o-keyframes slideUp {
+  0% {
+    -o-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+  }
+  60% {
+    -o-transform: translateY(-5px);
+    transform: translateY(-5px);
+    opacity: 1;
+  }
+  100% {
+    -o-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* SlideDown Animation */
+@-webkit-keyframes slideDown {
+  0% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  40% {
+    -webkit-transform: translateY(-5px);
+    transform: translateY(-5px);
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    -webkit-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@-moz-keyframes slideDown {
+  0% {
+    -moz-transform: translateY(0);
+    transform: translateY(0);
+    opacity: 1;
+    visibility: visible;
+  }
+  40% {
+    -moz-transform: translateY(-5px);
+    transform: translateY(-5px);
+    opacity: 1;
+    visibility: visible;
+  }
+  100% {
+    -moz-transform: translateY(1000px);
+    transform: translateY(1000px);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Float Animation - For testimonial section */
+@-webkit-keyframes float {
+  0%,
+  100% {
+    -webkit-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  50% {
+    -webkit-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
+
+@-moz-keyframes float {
+  0%,
+  100% {
+    -moz-transform: translateY(0px);
+    transform: translateY(0px);
+  }
+  50% {
+    -moz-transform: translateY(-10px);
+    transform: translateY(-10px);
+  }
+}
+
+/* ============================================================================
+   ANIMATION PROPERTY FIXES
+   ============================================================================ */
+
+/* Fix for login popup animation */
+.register.active {
+  visibility: visible;
+  -webkit-animation: slideUp 0.4s ease forwards;
+  -moz-animation: slideUp 0.4s ease forwards;
+  -o-animation: slideUp 0.4s ease forwards;
+  animation: slideUp 0.4s ease forwards;
+}
+
+/* Fix for overlay transitions */
+.overlay {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* ============================================================================
+   TRANSFORM FIXES FOR BUTTONS AND INPUTS
+   ============================================================================ */
+
+/* Login input focus animation */
+.login__input:focus {
+  -webkit-transform: scale(1.02);
+  -moz-transform: scale(1.02);
+  -ms-transform: scale(1.02);
+  -o-transform: scale(1.02);
+  transform: scale(1.02);
+}
+
+/* Login label animation */
+.login__label {
+  -webkit-transition: -webkit-transform 0.4s, font-size 0.4s, color 0.4s;
+  -moz-transition: -moz-transform 0.4s, font-size 0.4s, color 0.4s;
+  -o-transition: -o-transform 0.4s, font-size 0.4s, color 0.4s;
+  transition: transform 0.4s, font-size 0.4s, color 0.4s;
+}
+
+.login__input:focus ~ .login__label,
+.login__input.alert:focus ~ .login__label.alert {
+  -webkit-transform: translateY(-0.8rem);
+  -moz-transform: translateY(-0.8rem);
+  -ms-transform: translateY(-0.8rem);
+  -o-transform: translateY(-0.8rem);
+  transform: translateY(-0.8rem);
+}
+
+.login__input:not(:placeholder-shown).login__input:not(:focus) ~ .login__label {
+  -webkit-transform: translateY(-0.8rem);
+  -moz-transform: translateY(-0.8rem);
+  -ms-transform: translateY(-0.8rem);
+  -o-transform: translateY(-0.8rem);
+  transform: translateY(-0.8rem);
+}
+
+/* Button hover animations */
+.login__button:hover,
+.cta-button:hover {
+  -webkit-transform: translateY(-2px);
+  -moz-transform: translateY(-2px);
+  -ms-transform: translateY(-2px);
+  -o-transform: translateY(-2px);
+  transform: translateY(-2px);
+}
+
+.login__button:active {
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.google-login:hover {
+  -webkit-transform: translateY(-1px);
+  -moz-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+  -o-transform: translateY(-1px);
+  transform: translateY(-1px);
+}
+
+/* Password icon transform */
+.login__icon {
+  /* -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%); */
+  /* transform: translateY(-50%); */
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* ============================================================================
+   HERO SECTION ANIMATIONS
+   ============================================================================ */
+
+/* Dropdown menu animation */
+.dropdown-menu {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.nav-menu.active .dropdown-menu {
+  visibility: visible;
+  -webkit-transform: translateY(10px);
+  -moz-transform: translateY(10px);
+  -ms-transform: translateY(10px);
+  -o-transform: translateY(10px);
+  transform: translateY(10px);
+  opacity: 1;
+}
+
+/* Nav link transitions */
+.nav-link {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+/* CTA Button animations */
+.cta-button,
+.cta-button-third,
+.cta-button-fourth {
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.cta-button:hover,
+.cta-button-third:hover,
+.cta-button-fourth:hover {
+  -webkit-transform: translateY(-3px);
+  -moz-transform: translateY(-3px);
+  -ms-transform: translateY(-3px);
+  -o-transform: translateY(-3px);
+  transform: translateY(-3px);
+}
+
+.cta-button:active,
+.cta-button-third:active,
+.cta-button-fourth:active {
+  -webkit-transform: translateY(-1px);
+  -moz-transform: translateY(-1px);
+  -ms-transform: translateY(-1px);
+  -o-transform: translateY(-1px);
+  transform: translateY(-1px);
+}
+
+/* SVG icon animations in buttons */
+.cta-button-third svg,
+.cta-button-fourth svg {
+  -webkit-transition: -webkit-transform 0.3s ease;
+  -moz-transition: -moz-transform 0.3s ease;
+  -o-transition: -o-transform 0.3s ease;
+  transition: transform 0.3s ease;
+}
+
+.cta-button-third:hover svg,
+.cta-button-fourth:hover svg {
+  -webkit-transform: translateX(5px);
+  -moz-transform: translateX(5px);
+  -ms-transform: translateX(5px);
+  -o-transform: translateX(5px);
+  transform: translateX(5px);
+}
+
+/* ============================================================================
+   PRACTICE & AI SECTION ANIMATIONS
+   ============================================================================ */
+
+/* Interface hover effects */
+.ielts-interface,
+.AI-interface {
+  -webkit-transition: -webkit-transform 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: -moz-transform 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: -o-transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ielts-interface:hover,
+.AI-interface:hover {
+  -webkit-transform: translateY(-10px);
+  -moz-transform: translateY(-10px);
+  -ms-transform: translateY(-10px);
+  -o-transform: translateY(-10px);
+  transform: translateY(-10px);
+}
+
+/* Visual and text animations */
+.ielts-visual,
+.ielts-text,
+.AI-visual,
+.AI-text {
+  -webkit-transform: translateY(30px);
+  -moz-transform: translateY(30px);
+  -ms-transform: translateY(30px);
+  -o-transform: translateY(30px);
+  transform: translateY(30px);
+  -webkit-transition: all 0.8s ease;
+  -moz-transition: all 0.8s ease;
+  -o-transition: all 0.8s ease;
+  transition: all 0.8s ease;
+}
+
+.ielts-visual.animate-in,
+.ielts-text.animate-in,
+.AI-visual.animate-in,
+.AI-text.animate-in {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  -ms-transform: translateY(0);
+  -o-transform: translateY(0);
+  transform: translateY(0);
+}
+
+/* Transition delays for staggered animation */
+.ielts-visual.animate-in,
+.AI-visual.animate-in {
+  -webkit-transition-delay: 0.2s;
+  -moz-transition-delay: 0.2s;
+  -o-transition-delay: 0.2s;
+  transition-delay: 0.2s;
+}
+
+.ielts-text.animate-in,
+.AI-text.animate-in {
+  -webkit-transition-delay: 0.4s;
+  -moz-transition-delay: 0.4s;
+  -o-transition-delay: 0.4s;
+  transition-delay: 0.4s;
+}
+
+/* Parallax hover effect with vendor prefixes */
+/* @media (prefers-reduced-motion: no-preference) {
+  .ielts-interface:hover,
+  .AI-interface:hover {
+    -webkit-transform: translateY(-10px) scale(1.02);
+    -moz-transform: translateY(-10px) scale(1.02);
+    -ms-transform: translateY(-10px) scale(1.02);
+    -o-transform: translateY(-10px) scale(1.02);
+    transform: translateY(-10px) scale(1.02);
+  }
+} */
+
+/* ============================================================================
+   SMOOTH SCROLL POLYFILL FOR OLDER BROWSERS
+   ============================================================================ */
+
+/* Ensure smooth scrolling works across browsers */
+html {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; /* iOS smooth scrolling */
+}
+
+/* ============================================================================
+   HARDWARE ACCELERATION FIXES
+   ============================================================================ */
+
+/* Force hardware acceleration for better performance */
+.register,
+.overlay,
+.login__input,
+.login__label,
+.login__button,
+.google-login,
+.cta-button,
+.cta-button-third,
+.cta-button-fourth,
+.ielts-interface,
+.AI-interface,
+.dropdown-menu,
+.nav-menu {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  perspective: 1000px;
+  will-change: transform, opacity;
+}
+
+/* Optimize transform performance */
+.login__input:focus,
+.login__button:hover,
+.google-login:hover,
+.cta-button:hover {
+  -webkit-transform: translateZ(0) scale(1.02);
+  -moz-transform: translateZ(0) scale(1.02);
+  transform: translateZ(0) scale(1.02);
+}
+
+/* ============================================================================
+   BROWSER-SPECIFIC FIXES
+   ============================================================================ */
+
+/* Safari-specific fixes */
+@supports (-webkit-appearance: none) {
+  .login__input,
+  .login__button,
+  .google-login,
+  .cta-button {
+    -webkit-appearance: none;
+  }
+
+  /* Fix Safari transform bugs */
+  .login__label {
+    -webkit-transform-style: preserve-3d;
+  }
+}
+
+/* Firefox-specific fixes */
+@-moz-document url-prefix() {
+  .login__input,
+  .login__button,
+  .google-login {
+    -moz-appearance: none;
+  }
+}
+
+/* Edge and IE11 fixes */
+@supports (-ms-ime-align: auto) {
+  .login__input:focus {
+    -ms-transform: scale(1.02);
+  }
+
+  .login__button:hover {
+    -ms-transform: translateY(-2px);
+  }
+}
+
+/* ============================================================================
+   FALLBACK FOR NO-JS BROWSERS
+   ============================================================================ */
+
+/* Ensure animations work even without JavaScript */
+.no-js .register.active {
+  visibility: visible;
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  -moz-transform: translateY(0);
+  transform: translateY(0);
+}
+
+.no-js .overlay.active {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* ============================================================================
+   TRANSITION TIMING FUNCTION STANDARDIZATION
+   ============================================================================ */
+
+/* Ensure consistent easing across browsers */
+* {
+  -webkit-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -moz-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  -o-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

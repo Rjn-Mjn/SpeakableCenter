@@ -1,0 +1,121 @@
+/* Google Fonts are now loaded in HTML for better performance and reliability */
+
+/* Cross-Platform Font Variables - Optimized for Windows, macOS, and Linux */
+:root {
+  /* Primary text font - works on all operating systems */
+  --font-inter: "Inter", "Inter-Local", 
+                /* Windows */ "Segoe UI", "Calibri", 
+                /* macOS */ -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", 
+                /* Linux */ "Ubuntu", "Roboto", "Liberation Sans", "DejaVu Sans", 
+                /* Universal */ ui-sans-serif, system-ui, Arial, sans-serif;
+                
+  /* Decorative cursive font - Pacifico works everywhere */
+  --font-pacifico: "Pacifico", "Pacifico-Local", 
+                   /* Windows */ "Brush Script MT", "Lucida Handwriting", 
+                   /* macOS */ "Apple Chancery", "Marker Felt", "Bradley Hand", 
+                   /* Linux */ "URW Chancery L", "Liberation Serif", 
+                   /* Universal */ "Comic Sans MS", cursive;
+                   
+  /* Handwriting font - Kalam from Google Fonts as primary */
+  --font-handwriting: "Kalam", 
+                      /* Windows */ "Segoe Print", "Comic Sans MS", 
+                      /* macOS */ "Marker Felt", "Bradley Hand", "Apple Chancery", 
+                      /* Linux */ "Liberation Sans", 
+                      /* Universal */ "Chalkduster", cursive;
+                      
+  /* Other fonts with OS-specific fallbacks */
+  --font-source-serif: "Source Serif Pro", 
+                       /* Windows */ "Times New Roman", "Georgia", 
+                       /* macOS */ "Times", "Georgia", 
+                       /* Linux */ "Liberation Serif", "DejaVu Serif", 
+                       /* Universal */ ui-serif, serif;
+                       
+  --font-kalam: "Kalam", 
+                /* Windows */ "Comic Sans MS", "Chalkduster", 
+                /* macOS */ "Bradley Hand", "Marker Felt", 
+                /* Linux */ "Liberation Sans", 
+                /* Universal */ cursive;
+                
+  --font-akshar: "Akshar", 
+                 /* Windows */ "Segoe UI", "Calibri", 
+                 /* macOS */ "SF Pro Text", "Helvetica Neue", 
+                 /* Linux */ "Ubuntu", "Liberation Sans", 
+                 /* Universal */ ui-sans-serif, Arial, sans-serif;
+                 
+  --font-archivo-black: "Archivo Black", 
+                        /* Windows */ "Arial Black", "Impact", 
+                        /* macOS */ "Helvetica Neue", "Arial Black", 
+                        /* Linux */ "Liberation Sans", "DejaVu Sans", 
+                        /* Universal */ "Arial", sans-serif;
+                        
+  --font-gasoek: "Gasoek One", 
+                 /* Windows */ "Impact", "Arial Black", 
+                 /* macOS */ "Helvetica Neue", "Arial Black", 
+                 /* Linux */ "Liberation Sans", "Ubuntu", 
+                 /* Universal */ "Arial", sans-serif;
+                 
+  --font-shrikhand: "Shrikhand", 
+                    /* Windows */ "Brush Script MT", "Lucida Handwriting", 
+                    /* macOS */ "Apple Chancery", "Marker Felt", 
+                    /* Linux */ "Liberation Serif", 
+                    /* Universal */ cursive;
+                    
+  --font-syncopate: "Syncopate", 
+                    /* Windows */ "Courier New", "Consolas", 
+                    /* macOS */ "SF Mono", "Monaco", 
+                    /* Linux */ "Liberation Mono", "DejaVu Sans Mono", 
+                    /* Universal */ monospace;
+                    
+  --font-tilt-warp: "Tilt Warp", 
+                    /* Windows */ "Segoe UI", "Arial", 
+                    /* macOS */ "SF Pro Text", "Helvetica Neue", 
+                    /* Linux */ "Ubuntu", "Liberation Sans", 
+                    /* Universal */ ui-sans-serif, sans-serif;
+                    
+  --font-sofia-condensed: "Sofia Sans Condensed", 
+                          /* Windows */ "Arial Narrow", "Segoe UI", 
+                          /* macOS */ "Helvetica Neue Condensed", "Arial Narrow", 
+                          /* Linux */ "Liberation Sans Narrow", "Ubuntu Condensed", 
+                          /* Universal */ "Helvetica Condensed", sans-serif;
+  --color-primary: #5eb9a9;
+  --color-secondary: #8fd2c6;
+  --color-accent: #c1ebe3;
+  --color-black: #000000;
+  --color-dark: #1a1a1a;
+  --color-gray: #666666;
+  --color-light-gray: #f5f5f7;
+  --color-white: #ffffff;
+  --color-base: #f9f8f4;
+}
+
+html {
+  /* scroll-behavior: smooth; */
+}
+
+/* Base Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* color: #f9f8f4; */
+}
+
+body {
+  font-family: var(--font-inter);
+  line-height: 1.6;
+  /* color: #f9f8f4; */
+  overflow-x: hidden;
+}
+
+/* Full Screen Section Base */
+.section {
+  /* min-height: 100vh; */
+  /* height: 100vh; */
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  /* padding: 0 2rem; */
+}

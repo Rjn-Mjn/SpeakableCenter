@@ -1,0 +1,115 @@
+/*
+ * Self-Hosted Fonts for 100% Cross-Platform Reliability
+ * Designed to work perfectly on Windows, macOS, and Linux
+ * These fonts are served from your own domain (audiox.space)
+ */
+
+/* Inter Font Family - Self Hosted */
+@font-face {
+  font-family: 'Inter-Local';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Inter-Regular.woff2') format('woff2'),
+       url('../assets/fonts/Inter-Regular.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, 
+                 U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, 
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter-Local';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+    src: url('../assets/fonts/Inter-Medium.woff2') format('woff2'),
+         url('../assets/fonts/Inter-Medium.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, 
+                 U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, 
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Inter-Local';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+    src: url('../assets/fonts/Inter-Bold.woff2') format('woff2'),
+         url('../assets/fonts/Inter-Bold.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, 
+                 U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, 
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Pacifico Font - Self Hosted */
+@font-face {
+  font-family: 'Pacifico-Local';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/Pacifico-Regular.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, 
+                 U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, 
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Segoe Print - Using existing local file */
+@font-face {
+  font-family: 'Segoe-Print-Local';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/segoepr.ttf') format('truetype');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, 
+                 U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, 
+                 U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* Cross-Platform Font Stacks - Optimized for Windows, macOS, and Linux */
+:root {
+  /* Inter: Google → Local → OS-specific system fonts */
+  --font-inter-hybrid: "Inter", "Inter-Local", 
+                       /* Windows */ "Segoe UI", "Calibri", 
+                       /* macOS */ -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", 
+                       /* Linux */ "Ubuntu", "Roboto", "Liberation Sans", "DejaVu Sans", 
+                       /* Universal */ ui-sans-serif, system-ui, Arial, sans-serif;
+                       
+  /* Pacifico: Google → Local → OS-specific cursive fonts */
+  --font-pacifico-hybrid: "Pacifico", "Pacifico-Local", 
+                          /* Windows */ "Brush Script MT", "Lucida Handwriting", 
+                          /* macOS */ "Apple Chancery", "Zapf-Chancery", "Marker Felt", 
+                          /* Linux */ "URW Chancery L", "Liberation Serif", 
+                          /* Universal */ "Comic Sans MS", cursive;
+                          
+  /* Handwriting font: Kalam from Google → Local Segoe → OS-specific handwriting fonts */
+  --font-handwriting-hybrid: "Kalam", "Segoe-Print-Local", 
+                             /* Windows */ "Segoe Print", "Comic Sans MS", 
+                             /* macOS */ "Marker Felt", "Bradley Hand", "Apple Chancery", 
+                             /* Linux */ "Liberation Sans", 
+                             /* Universal */ "Chalkduster", "Trattatello", cursive;
+  
+  /* Make sure these align with your existing variables */
+  --font-inter: var(--font-inter-hybrid);
+  --font-pacifico: var(--font-pacifico-hybrid);
+  --font-handwriting: var(--font-handwriting-hybrid);
+}
+
+/* Utility classes for immediate local font usage */
+.font-inter-local {
+  font-family: "Inter-Local", ui-sans-serif, system-ui, sans-serif;
+}
+
+.font-pacifico-local {
+  font-family: "Pacifico-Local", "Brush Script MT", cursive;
+}
+
+/* Font loading failure override */
+.fonts-failed * {
+  font-family: "Inter-Local", ui-sans-serif, system-ui, sans-serif !important;
+}
+
+.fonts-failed .welcome-title,
+.fonts-failed .font-pacifico,
+.fonts-failed [style*="Pacifico"] {
+  font-family: "Pacifico-Local", "Brush Script MT", cursive !important;
+}

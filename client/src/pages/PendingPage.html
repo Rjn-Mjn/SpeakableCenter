@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Activation Pending - Speakable</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
+        background: linear-gradient(135deg, #ffd89b 0%, #ffaa45 100%);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+      }
+
+      .pending-container {
+        background: white;
+        border-radius: 20px;
+        padding: 3rem;
+        max-width: 500px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        text-align: center;
+        animation: slideUp 0.5s ease;
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(30px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .pending-icon {
+        width: 80px;
+        height: 80px;
+        background: linear-gradient(135deg, #ffaa45, #ff8800);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 2rem;
+        font-size: 2.5rem;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          transform: scale(1);
+          box-shadow: 0 0 0 0 rgba(255, 170, 69, 0.4);
+        }
+        50% {
+          transform: scale(1.05);
+          box-shadow: 0 0 0 20px rgba(255, 170, 69, 0);
+        }
+      }
+
+      h1 {
+        color: #333;
+        margin-bottom: 1rem;
+        font-size: 2rem;
+      }
+
+      .status-badge {
+        display: inline-block;
+        background: #fff3cd;
+        color: #856404;
+        padding: 0.5rem 1rem;
+        border-radius: 100px;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        border: 2px solid #ffc107;
+      }
+
+      .message {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+      }
+
+      .info-box {
+        background: #f8f9fa;
+        border-left: 4px solid #ffaa45;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: left;
+        margin-bottom: 2rem;
+      }
+
+      .info-box h3 {
+        color: #333;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+      }
+
+      .info-box p {
+        color: #666;
+        margin: 0.5rem 0;
+        font-size: 0.95rem;
+      }
+
+      .user-info {
+        background: #f0f8ff;
+        padding: 1rem;
+        border-radius: 8px;
+        margin-bottom: 2rem;
+        border: 1px solid #d1e7ff;
+      }
+
+      .user-info p {
+        margin: 0.5rem 0;
+        color: #555;
+      }
+
+      .user-info strong {
+        color: #333;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        padding: 0.75rem 2rem;
+        border-radius: 8px;
+        font-weight: 600;
+        text-decoration: none;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: none;
+        font-size: 1rem;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #ffaa45, #ff8800);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(255, 136, 0, 0.3);
+      }
+
+      .btn-secondary {
+        background: #f8f9fa;
+        color: #333;
+        border: 2px solid #dee2e6;
+      }
+
+      .btn-secondary:hover {
+        background: #e9ecef;
+      }
+
+      .countdown {
+        margin-top: 2rem;
+        padding-top: 2rem;
+        border-top: 1px solid #dee2e6;
+        color: #666;
+        font-size: 0.9rem;
+      }
+
+      .countdown strong {
+        color: #ff8800;
+        font-size: 1.1rem;
+      }
+
+      .logo {
+        height: 40px;
+        margin-bottom: 2rem;
+      }
+
+      @media (max-width: 480px) {
+        .pending-container {
+          padding: 2rem 1.5rem;
+        }
+
+        h1 {
+          font-size: 1.5rem;
+        }
+
+        .action-buttons {
+          flex-direction: column;
+        }
+
+        .btn {
+          width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="pending-container">
+      <img src="../assets/Images/Logo.png" alt="Speakable Logo" class="logo" />
+
+      <div class="pending-icon">⏳</div>
+
+      <h1>Account Activation Pending</h1>
+
+      <div class="status-badge">PENDING VERIFICATION</div>
+
+      <div class="message">
+        <p>
+          Thank you for registering with Speakable! Your account has been
+          created successfully and is currently awaiting activation.
+        </p>
+      </div>
+
+      <div class="user-info" id="userInfo">
+        <!-- User info will be populated by JavaScript -->
+      </div>
+
+      <div class="info-box">
+        <h3>What happens next?</h3>
+        <p>📧 Check your email for activation instructions</p>
+        <p>👨‍💼 Our admin team will review your account within 24-48 hours</p>
+        <p>✅ Once approved, you'll have full access to all features</p>
+      </div>
+
+      <div class="action-buttons">
+        <button class="btn btn-primary" onclick="checkStatus()">
+          🔄 Check Status
+        </button>
+        <!-- <a href="/api/logout" class="btn btn-secondary"> Logout </a> -->
+        <form
+            class="nav-link"
+            id="logoutForm"
+            action="/api/logout"
+            method="POST"
+          >
+            <button class="btn btn-secondary" type="submit">
+              Logout
+            </button>
+      </div>
+
+      <div class="countdown">
+        <p>Auto-refresh in <strong id="countdown">30</strong> seconds</p>
+      </div>
+    </div>
+
+    <script>
+      // Display user information
+      async function loadUserInfo() {
+        try {
+          const response = await fetch("/api/check-auth");
+          const data = await response.json();
+
+          if (data.authenticated && data.user) {
+            const userInfoDiv = document.getElementById("userInfo");
+            userInfoDiv.innerHTML = `
+                        <p><strong>Email:</strong> ${
+                          data.user.Email || "N/A"
+                        }</p>
+                        <p><strong>Name:</strong> ${
+                          data.user.FullName || "N/A"
+                        }</p>
+                        <p><strong>Status:</strong> ${
+                          data.user.Status || "Pending"
+                        }</p>
+                    `;
+          }
+        } catch (error) {
+          console.error("Error loading user info:", error);
+        }
+      }
+
+      // Check account status
+      async function checkStatus() {
+        try {
+          const response = await fetch("/api/check-auth");
+          const data = await response.json();
+
+          if (data.authenticated && data.user) {
+            if (data.user.Status === "active") {
+              // Account activated! Redirect to dashboard
+              window.location.href = "/dashboard";
+            } else {
+              // Still pending
+              alert(
+                "Your account is still pending activation. Please check back later."
+              );
+              resetCountdown();
+            }
+          } else {
+            // Not authenticated, redirect to login
+            window.location.href = "/login";
+          }
+        } catch (error) {
+          console.error("Error checking status:", error);
+          alert("Error checking account status. Please try again.");
+        }
+      }
+
+      // Countdown timer
+      let countdownValue = 30;
+      let countdownInterval;
+
+      function startCountdown() {
+        countdownInterval = setInterval(() => {
+          countdownValue--;
+          document.getElementById("countdown").textContent = countdownValue;
+
+          if (countdownValue <= 0) {
+            checkStatus();
+            resetCountdown();
+          }
+        }, 1000);
+      }
+
+      function resetCountdown() {
+        clearInterval(countdownInterval);
+        countdownValue = 30;
+        document.getElementById("countdown").textContent = countdownValue;
+        startCountdown();
+      }
+
+      // Initialize
+      loadUserInfo();
+      startCountdown();
+    </script>
+  </body>
+</html>

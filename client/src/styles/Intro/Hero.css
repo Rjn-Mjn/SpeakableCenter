@@ -1,0 +1,295 @@
+/* ============================================================================
+   SECTION 1: HERO SECTION
+   ============================================================================ */
+
+#hero {
+  background: linear-gradient(180deg, #34a792 0%, #99d3c8 63.46%, #f9f8f4 100%);
+  color: var(--color-white);
+  position: relative;
+  overflow: hidden;
+  min-height: 100vh;
+}
+
+.navbar {
+  position: absolute;
+  top: 0.5rem;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 3rem;
+  z-index: 10;
+  /* background-color: #ffffff; */
+}
+
+.nav-logo .logo {
+  margin-top: 1rem;
+  height: 5rem;
+  width: auto;
+  max-height: 100px;
+}
+
+.nav-menu {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 0.5rem;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  cursor: pointer;
+  box-shadow: 13px 6px 65.6px 0 rgba(0, 0, 0, 0.593);
+}
+
+.dropdown-menu {
+  position: absolute;
+  display: flex;
+  padding: 0.5rem;
+  top: 4.5rem; /* chỉnh cho khớp chiều cao navbar */
+  right: 10px;
+  list-style: none;
+  margin: 0;
+  /* padding: 0; */
+  background: #ffffff;
+  border-radius: 1rem;
+  overflow: hidden;
+  /* display: none; */
+  border: 1px solid rgb(173, 173, 173);
+  flex-direction: column;
+
+  /* max-height: 0; */
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu .nav-link.login-btn {
+  color: var(--color-white);
+}
+
+.dropdown-menu li .login-btn:hover,
+.login-btn:hover {
+  background: #4fc19f;
+}
+
+.dropdown-menu li a {
+  display: block;
+  padding: 12px 16px;
+  color: black;
+  text-decoration: none;
+}
+
+.dropdown-menu li a:hover,
+.nav-link:hover {
+  background: #c0c0c0;
+  border-radius: 1rem;
+}
+
+/* khi nav-menu active -> show dropdown */
+.nav-menu.active .dropdown-menu {
+  visibility: visible;
+  transform: translateY(10px);
+  /* max-height: 500px; */
+  opacity: 1;
+}
+
+.nav-menu.active {
+  background-color: rgb(226, 226, 226);
+}
+
+.nav-links {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 0.8rem 1rem 0.8rem 1.5rem;
+  border-radius: 1.5rem;
+  box-shadow: 13px 6px 65.6px 0 rgba(0, 0, 0, 0.18);
+}
+
+.nav-link {
+  color: var(--color-black);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  /* transition: opacity 0.3s; */
+  padding: 0.5rem 0.8rem;
+  border-radius: 2rem;
+
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+  opacity: 0.8;
+}
+
+.login-btn {
+  background: #73d5c3;
+  padding: 0.5rem 1.2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  color: var(--color-white);
+  box-shadow: 0 4px 19.1px 0 rgba(0, 0, 0, 0.25);
+}
+
+.login-btn:hover {
+  background: #4fc19f;
+}
+
+.hero-content {
+  text-align: center;
+  /* max-width: 1000px; */
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  /* background-color: #000000; */
+  /* gap: 3rem; */
+}
+
+.hero-title {
+  font-size: 4rem;
+  /* font-weight: 700; */
+  margin-bottom: 1rem;
+  width: 100%;
+
+  font-family: var(
+    --font-inter,
+    "Inter",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Oxygen,
+    Ubuntu,
+    sans-serif
+  );
+  color: #fff;
+  text-align: center;
+  text-shadow: 5px 12px 32.5px rgba(0, 0, 0, 0.25);
+  font-style: normal;
+  font-weight: 900;
+  /* line-height: 0%;  */
+  letter-spacing: 0.3rem;
+}
+
+.hero-subtitle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  /* max-width: 600px; */
+  padding: 0.5rem 1.2rem;
+  border-radius: 39px;
+  background: rgba(88, 118, 219, 0.55);
+  /* width: 10px; */
+  margin-bottom: 2rem;
+}
+
+.hero-subtitle {
+  font-size: 1.5rem;
+  opacity: 0.9;
+  font-weight: 900;
+  letter-spacing: 0.64px;
+}
+
+.cta-button {
+  background: var(--color-white);
+  color: var(--color-primary);
+  border: none;
+  padding: 0.5rem 0.5rem 0.5rem 3rem;
+  border-radius: 2rem;
+  font-size: 1.3rem;
+  font-weight: 800;
+  letter-spacing: 0.64px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 2rem;
+  font-family: var(--font-inter, "Inter", "Inter-Local", ui-sans-serif, system-ui, sans-serif);
+}
+
+.cta-button div {
+  position: relative;
+  /* right: ; */
+  display: flex;
+  padding: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  background-color: #2c2c2c;
+  border-radius: 100%;
+}
+
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.hero-banner {
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 35.109px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  padding: 10.24px 307.203px;
+  z-index: 5;
+  overflow: hidden;
+  background: linear-gradient(
+    180deg,
+    rgba(112, 216, 197, 0.58) 0%,
+    rgba(86, 209, 186, 0.94) 45.19%,
+    rgba(86, 209, 186, 0.77) 100%
+  );
+  font-size: 3rem;
+  width: auto;
+}
+
+/* .banner-text {
+  font-size: 3rem;
+  font-weight: 700;
+  opacity: 0.3;
+  letter-spacing: 0.2rem;
+
+} */
+
+.hero-banner span {
+  color: #f1f0ec;
+  /* text-shadow: 1px 1px white, -1px -1px rgba(0, 0, 0, 0.08); */
+  /* text-shadow: 1px 1px white, -1px -1px #444; */
+}
+
+.READING {
+  font-family: var(--font-gasoek, "Gasoek One", "Impact", "Arial Black", sans-serif);
+  font-weight: 400;
+}
+.SPEAKING {
+  font-family: var(--font-archivo-black, "Archivo Black", "Arial Black", "Impact", sans-serif);
+  font-weight: 400;
+}
+.FUN {
+  font-family: var(--font-shrikhand, "Shrikhand", "Brush Script MT", "Apple Chancery", cursive);
+  font-weight: 400;
+}
+.LISTENING {
+  font-family: var(--font-akshar, "Akshar", "Segoe UI", "Helvetica Neue", "Ubuntu", sans-serif);
+  font-weight: 500;
+}
+.CONFIDENCE {
+  font-family: var(--font-sofia-condensed, "Sofia Sans Condensed", "Arial Narrow", "Helvetica Condensed", sans-serif);
+  font-weight: 900;
+}
+.BRIGHT {
+  font-family: var(--font-syncopate, "Syncopate", "Courier New", "SF Mono", "Liberation Mono", monospace);
+  font-weight: 700;
+}
+.WRITING {
+  font-family: var(--font-tilt-warp, "Tilt Warp", "Segoe UI", "SF Pro Text", "Ubuntu", sans-serif);
+  font-weight: 400;
+}

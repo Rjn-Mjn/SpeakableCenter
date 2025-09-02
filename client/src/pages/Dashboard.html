@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Speakable</title>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="../styles/Dashboard/dashboard.css" />
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-logo">
+        <img src="../assets/Images/Logo.png" alt="Speakable Logo" />
+      </div>
+      <div class="nav-links">
+        <a href="/" class="nav-link">Home</a>
+        <a href="#" class="nav-link">My Courses</a>
+        <a href="#" class="nav-link">Progress</a>
+        <a href="#" class="nav-link">Settings</a>
+        <a href="/api/logout" class="logout-btn">Logout</a>
+      </div>
+    </nav>
+
+    <div class="dashboard-container">
+      <div class="welcome-card">
+        <h1 class="welcome-title">Welcome to Your Dashboard!</h1>
+        <p class="welcome-subtitle">
+          Track your learning progress and access your courses
+        </p>
+      </div>
+
+      <div class="dashboard-grid hidden" data-role="Admin">
+        <div class="dashboard-card">
+          <div class="card-icon">📚</div>
+          <h2 class="card-title">My Courses</h2>
+          <p class="card-description">
+            Access your enrolled courses and continue learning
+          </p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">📊</div>
+          <h2 class="card-title">Progress Tracking</h2>
+          <p class="card-description">
+            Monitor your learning progress and achievements
+          </p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">✍️</div>
+          <h2 class="card-title">Practice Tests</h2>
+          <p class="card-description">
+            Take IELTS mock tests and practice exercises
+          </p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">💬</div>
+          <h2 class="card-title">Speaking Practice</h2>
+          <p class="card-description">
+            Improve your speaking skills with AI-powered practice
+          </p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">📝</div>
+          <h2 class="card-title">Writing Lab</h2>
+          <p class="card-description">
+            Practice writing with instant feedback and corrections
+          </p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+
+        <div class="dashboard-card">
+          <div class="card-icon">🎯</div>
+          <h2 class="card-title">Goals & Achievements</h2>
+          <p class="card-description">
+            Set learning goals and track your achievements
+          </p>
+          <span class="coming-soon">Coming Soon</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      //   fetch("/api/me")
+      //     .then((res) => res.json())
+      //     .then((data) => {
+      //       console.log("Current role:", data.RoleName);
+      //     })
+      //     .catch((err) => console.error("API error:", err));
+
+      fetch("/api/me")
+        .then((r) => r.json())
+        .then((user) => {
+          console.log("Current role:", user.RoleName);
+          // show by role
+          document.querySelectorAll("[data-role]").forEach((el) => {
+            const roleNeeded = el.dataset.role; // e.g. "admin"
+            if (user.RoleName === roleNeeded) el.classList.remove("hidden");
+          });
+        });
+    </script>
+  </body>
+</html>

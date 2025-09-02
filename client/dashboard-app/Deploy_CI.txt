@@ -1,0 +1,12 @@
+npm install: 
+sudo env ESBUILD_BINARY_PATH=/usr/sbin/esbuild npm_config_unsafe_perm=true npm install
+
+npm build:
+sudo npm run build
+
+npm: 
+sudo npm run dev
+
+tailwind:
+sudo npm install -D tailwindcss@3.4.10 postcss autoprefixer --unsafe-perm
+sudo node ./node_modules/tailwindcss/lib/cli.js init -p

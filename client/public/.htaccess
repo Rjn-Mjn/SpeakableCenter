@@ -1,0 +1,58 @@
+# Font Loading Optimization for audiox.space
+# Add proper headers for Google Fonts and web fonts
+
+# Enable CORS for fonts
+<FilesMatch "\.(woff|woff2|eot|ttf|otf)$">
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, OPTIONS"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</FilesMatch>
+
+# Cache fonts for better performance
+<FilesMatch "\.(woff|woff2|eot|ttf|otf)$">
+    ExpiresActive On
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+
+# Force HTTPS for font requests
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+</IfModule>
+
+# Preload key resources
+<IfModule mod_headers.c>
+    <FilesMatch "\.(html|php)$">
+        Header set Link "</style/Intro/Style.css>; rel=preload; as=style"
+        Header add Link "<https://fonts.googleapis.com>; rel=preconnect; crossorigin"
+        Header add Link "<https://fonts.gstatic.com>; rel=preconnect; crossorigin"
+    </FilesMatch>
+</IfModule>
+
+# Content Security Policy that allows Google Fonts - OPTIMIZED FOR CLOUDFLARE
+<IfModule mod_headers.c>
+    Header set Content-Security-Policy "default-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' https: data:; script-src 'self' 'unsafe-inline'; connect-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com;"
+</IfModule>
+
+# Cloudflare-specific adjustments for testing (safe defaults)
+<IfModule mod_headers.c>
+    # During testing, bypass cache for HTML only so headers update immediately
+    <FilesMatch "\.(html)$">
+        Header set Cache-Control "no-cache, no-store, must-revalidate"
+        Header set Pragma "no-cache"
+        Header set Expires "0"
+    </FilesMatch>
+</IfModule>
+
+# Ensure proper MIME types
+AddType font/woff2 .woff2
+AddType font/woff .woff
+AddType application/font-sfnt .ttf
+AddType application/font-sfnt .otf
+
+# Enable compression for fonts
+<IfModule mod_deflate.c>
+    <FilesMatch "\.(woff|woff2|eot|ttf|otf)$">
+        SetOutputFilter DEFLATE
+    </FilesMatch>
+</IfModule>

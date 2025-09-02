@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" />
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=yes, minimum-scale=1.0, maximum-scale=5.0"
+    />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="theme-color" content="#5eb9a9" />
+    <title>Speakable</title>
+
+    <!-- DNS Prefetch and Preconnect for Google Fonts - OPTIMIZED FOR CLOUDFLARE -->
+    <link rel="dns-prefetch" href="//fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="//fonts.gstatic.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin="anonymous"
+    />
+
+    <!-- FORCE Google Fonts Loading - Multiple Strategies -->
+    <!-- Strategy 1: Primary Google Fonts CSS with high priority -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Kalam:wght@300;400;700&family=Pacifico&family=Sofia+Sans+Condensed:ital,wght@0,1..1000;1,1..1000&display=swap"
+      rel="stylesheet"
+      media="all"
+    />
+
+    <!-- Strategy 2: Force reload with different cache-busting -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Pacifico&display=swap&v=2"
+      rel="stylesheet"
+      media="all"
+    />
+
+    <!-- Strategy 3: Backup Google Fonts link with different parameters -->
+    <link
+      href="https://fonts.googleapis.com/css?family=Inter:400,500,700|Pacifico&display=swap"
+      rel="stylesheet"
+      media="all"
+    />
+
+    <!-- Preload critical LOCAL fonts (instant loading) -->
+    <link
+      rel="preload"
+      href="../assets/fonts/Inter-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../assets/fonts/Inter-Medium.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../assets/fonts/Inter-Bold.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="../assets/fonts/Pacifico-Regular.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <!-- Local fonts (immediate fallback) -->
+    <link rel="stylesheet" href="../styles/fonts-local.css" />
+
+    <!-- Cross-platform font compatibility -->
+    <link rel="stylesheet" href="../styles/fonts-cross-platform.css" />
+
+    <!-- Preload critical Google fonts (enhanced loading) -->
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript
+      ><link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap"
+    /></noscript>
+
+    <link rel="stylesheet" href="../styles/login.css" />
+
+    <!-- Cross-browser animation fixes -->
+    <link rel="stylesheet" href="../styles/animation-fixes.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css"
+    />
+  </head>
+  <body>
+    <dialog
+      class="register"
+      role="dialog"
+      aria-labelledby="alert-title"
+      aria-describedby="alert-subtitle"
+    >
+      <header class="alert-section">
+        <h1 class="alert-title" id="alert-title">ACCOUNT NOT FOUND</h1>
+        <p class="alert-subtitle" id="alert-subtitle">
+          Enter your fullname to register
+        </p>
+      </header>
+
+      <main class="alert-login-content">
+        <div class="login__box">
+          <input
+            type="text"
+            id="username"
+            required
+            placeholder=" "
+            class="login__input"
+            tabindex="4"
+            aria-describedby="fullname-error"
+            autocomplete="name"
+          />
+          <div class="login__label-wrapper">
+            <label for="username" class="login__label">Fullname </label>
+          </div>
+          <small id="fullname-error" class="error-message" role="alert"></small>
+        </div>
+
+        <div class="login__box">
+          <input
+            type="password"
+            id="password-register"
+            required
+            placeholder=" "
+            class="login__input"
+            tabindex="5"
+            aria-describedby="password-error-register"
+            autocomplete="new-password"
+          />
+          <div class="login__label-wrapper">
+            <label for="password-register" class="login__label">Password</label>
+          </div>
+          <small
+            id="password-error-register"
+            class="error-message"
+            role="alert"
+          ></small>
+
+          <div class="login__icon-wrapper alert">
+            <button
+              type="button"
+              class="login__icon login__password"
+              id="loginPasswordRegister"
+              aria-label="Toggle password visibility"
+              tabindex="-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="login__icon login__password"
+                id="loginPasswordRegister-icon"
+              >
+                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                <path
+                  d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                />
+                <path
+                  d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                />
+                <line x1="2" x2="22" y1="2" y2="22" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="login__box">
+          <input
+            type="password"
+            id="password-register-confirm"
+            required
+            placeholder=" "
+            class="login__input"
+            tabindex="6"
+            aria-describedby="password-error-register-confirm"
+            autocomplete="new-password"
+          />
+          <div class="login__label-wrapper">
+            <label for="password-register-confirm" class="login__label"
+              >Confirm Password</label
+            >
+          </div>
+          <small
+            id="password-error-register-confirm"
+            class="error-message"
+            role="alert"
+          ></small>
+
+          <div class="login__icon-wrapper alert">
+            <button
+              type="button"
+              class="login__icon login__password"
+              id="loginPasswordRegisterConfirm"
+              aria-label="Toggle password visibility"
+              tabindex="-1"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="login__icon login__password"
+                id="loginPasswordRegisterConfirm-icon"
+              >
+                <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                <path
+                  d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                />
+                <path
+                  d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                />
+                <line x1="2" x2="22" y1="2" y2="22" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </main>
+
+      <button
+        type="submit"
+        class="login__button alert"
+        id="register-button"
+        tabindex="7"
+        aria-describedby="alert-subtitle"
+      >
+        CREATE ACCOUNT
+      </button>
+    </dialog>
+    <div class="overlay"></div>
+
+    <main id="main">
+      <section id="imageCard" class="hero-section" aria-label="Welcome section">
+        <a href="/" aria-label="Go to homepage">
+          <img
+            src="../assets/Images/Logo.png"
+            alt="Speakable Logo"
+            id="Logo"
+            loading="eager"
+          />
+        </a>
+        <img
+          src="../assets/Images/Hello.png"
+          alt="Welcome greeting"
+          id="Hello"
+          loading="lazy"
+        />
+        <img
+          src="../assets/Images/GreatingImage.png"
+          alt="Decorative greeting illustration"
+          id="GreatingImage"
+          loading="lazy"
+        />
+      </section>
+
+      <section id="LoginCard" class="login-section">
+        <div id="FieldsContainer">
+          <div class="button-container">
+            <button
+              type="button"
+              onclick="window.location.href='/'"
+              class="back-button"
+              aria-label="Go back"
+            >
+              <img
+                src="../assets/Images/back.png"
+                alt=""
+                id="back"
+                role="presentation"
+              />
+            </button>
+          </div>
+
+          <header class="welcome-section">
+            <h1 class="welcome-title">Welcome back!</h1>
+            <p class="welcome-subtitle">
+              Consistency is key - and you're already halfway there. Let's keep
+              learning!
+            </p>
+          </header>
+
+          <div class="login__area">
+            <form action="" class="login__form" id="loginForm" novalidate>
+              <div class="login__content">
+                <div class="input-container">
+                  <div class="login__box">
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      required
+                      placeholder=" "
+                      class="login__input"
+                      tabindex="1"
+                      aria-describedby="email-error"
+                      autocomplete="email"
+                    />
+
+                    <div class="login__label-wrapper">
+                      <label for="email" class="login__label"
+                        >Email or Phone number
+                      </label>
+                    </div>
+
+                    <small
+                      id="email-error"
+                      class="error-message"
+                      role="alert"
+                    ></small>
+                  </div>
+
+                  <div class="login__box">
+                    <input
+                      type="password"
+                      id="password"
+                      name="password"
+                      required
+                      placeholder=" "
+                      class="login__input"
+                      tabindex="2"
+                      aria-describedby="password-error"
+                      autocomplete="current-password"
+                    />
+                    <div class="login__label-wrapper">
+                      <label for="password" class="login__label"
+                        >Password</label
+                      >
+                    </div>
+                    <small
+                      id="password-error"
+                      class="error-message"
+                      role="alert"
+                    ></small>
+
+                    <div class="login__icon-wrapper">
+                      <button
+                        type="button"
+                        class="login__icon login__password"
+                        id="loginPassword"
+                        aria-label="Toggle password visibility"
+                        tabindex="-1"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          aria-hidden="true"
+                          id="loginPassword-icon"
+                        >
+                          <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+                          <path
+                            d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"
+                          />
+                          <path
+                            d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"
+                          />
+                          <line x1="2" x2="22" y1="2" y2="22" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <a href="#" class="login__forgot">Forgot password?</a>
+
+                <div class="submit-buttons-container">
+                  <button
+                    type="submit"
+                    class="login__button"
+                    tabindex="3"
+                    id="login-button"
+                  >
+                    GO
+                  </button>
+
+                  <div class="login__divider">
+                    <span>or</span>
+                  </div>
+
+                  <button
+                    type="button"
+                    class="google-login"
+                    id="myGoogleBtn"
+                    aria-label="Sign in with Google"
+                  >
+                    <span class="google-icon" aria-hidden="true">G</span>
+                    <span class="sr-only">Sign in with Google</span>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Font Loading System -->
+    <script src="../services/force-google-fonts.js"></script>
+    <script src="../services/font-loader.js"></script>
+
+    <script src="../services/main.js"></script>
+    <script src="../services/back-button.js"></script>
+    <script src="../services/login.js"></script>
+    <script src="../services/loginValidate.js"></script>
+    <script type="module" src="../services/google-login.js"></script>
+  </body>
+</html>

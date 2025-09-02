@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./client:/app
+      - /app/node_modules
+    environment:
+      - NODE_ENV=development
+    depends_on:
+      - server
+
+  server:
+    build: ./server
+    ports:
+      - "443:443"
+      - "80:80"
+    volumes:
+      - ./server:/app
+      - /app/node_modules
+      - ./server/ssl:/app/ssl
+    environment:
+      - NODE_ENV=production
+    env_file:
+      - .env
+
+  # Optional: Add database service
+  # database:
+  #   image: mcr.microsoft.com/mssql/server:2019-latest
+  #   environment:
+  #     - ACCEPT_EULA=Y
+  #     - SA_PASSWORD=${DB_PASS}
+  #   ports:
+  #     - "1433:1433"
+  #   volumes:
+  #     - db-data:/var/opt/mssql
+
+volumes:
+  db-data:
