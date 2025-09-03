@@ -66,7 +66,7 @@ export async function getUserByID(accountId) {
 export async function getUserByID_session(accountId) {
   const pool = await getPool();
   const result = await pool.request().input("id", sql.Int, accountId).query(
-    "SELECT AccountID, Fullname, Email, GoogleID, PhoneNumber, R.RoleName, [Status], AvatarLink \
+    "SELECT AccountID, Fullname, Email, GoogleID, PhoneNumber, R.RoleName, [Status], AvatarLink, DOC, DateOfBirth, Gender, Address \
       from Accounts AC JOIN Roles R ON AC.RoleID = R.RoleID \
       WHERE AccountID = @id"
   );
@@ -75,6 +75,7 @@ export async function getUserByID_session(accountId) {
 
 export async function addUser(user) {
   const pool = await getPool();
+  const now = new Date();
   const request = pool
     .request()
     .input("email", sql.VarChar, user.email)
@@ -82,7 +83,8 @@ export async function addUser(user) {
     .input("fullName", sql.NVarChar, user.fullName)
     .input("status", sql.VarChar, user.status)
     .input("roleid", sql.Int, "1")
-    .input("AvatarLink", sql.NVarChar(500), user.AvatarLink);
+    .input("AvatarLink", sql.NVarChar(500), user.AvatarLink)
+    .input("DOC", sql.Date, now);
 
   // Add GoogleId if provided
   if (user.googleId) {

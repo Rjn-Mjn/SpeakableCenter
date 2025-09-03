@@ -12,6 +12,93 @@
   position: relative;
   font-family: "Baloo 2";
   /* min-width: 10rem; */
+  transition: 0.3s ease;
+  z-index: 1000;
+  height: 95%;
+  /* transition: 0.5s ease; */
+
+  /* margin-bottom: 1rem; */
+}
+
+.sidebar.active {
+  /* position: absolute; */
+  transform: translateX(0);
+}
+
+.sidebar.small {
+  /* max-width: 4.5rem; */
+  animation: shrink 0.6s ease forwards;
+}
+.sidebar.small .logo-title {
+  /* max-width: 1rem; */
+  white-space: nowrap;
+  animation: text-gone 0.3s ease forwards;
+  /* opacity: 0; */
+  /* display: none; */
+}
+.sidebar.small a span span {
+  white-space: nowrap;
+  display: flex;
+  opacity: 0;
+  /* animation: text-gone 0.1s ease forwards; */
+  /* font-size: 0rem; */
+  /* display: none; */
+}
+.sidebar.small a:hover span span {
+  /* transform: scale(1.1) translateX(0.2rem); */
+  display: none;
+}
+.sidebar.small a:hover {
+  /* justify-content: center; */
+  /* padding: 1rem; */
+  min-height: 3.8rem;
+  /* max-height: 3.8rem; */
+}
+.sidebar.small .helper {
+  /* max-height: 3.8rem; */
+  display: none;
+}
+.sidebar.small a {
+  /* min-height: 3.8rem; */
+
+  padding: 0.8rem 1rem 0.8rem 1rem;
+}
+
+.sidebar.small .brand {
+  margin-right: 0;
+}
+.sidebar.small .bottom .settings-btn {
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+  margin-right: 0;
+}
+.sidebar.small .bottom .logout-btn {
+  animation: text-gone 0.3s ease forwards;
+  /* display: none; */
+}
+.sidebar.small .bottom .settings-btn span {
+  display: none;
+}
+
+@keyframes shrink {
+  from {
+    /* max-width: 100%; hoặc auto, hoặc giá trị đang có */
+    max-width: 100vw;
+  }
+  to {
+    max-width: 5.5rem;
+  }
+}
+@keyframes text-gone {
+  from {
+    /* font-size: 1.5rem; */
+    opacity: 1;
+  }
+  to {
+    /* font-size: 0rem; */
+    opacity: 0;
+  }
 }
 /* 
 .sidebar .top {
@@ -41,7 +128,7 @@
   /* align-items: start; */
   gap: 1rem;
   max-height: 60vh;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .sidebar ul {
@@ -50,7 +137,9 @@
   list-style: none;
   padding: 0;
   /* gap: 0.5rem; */
-  overflow: auto;
+  overflow-y: scroll; /* chỉ cuộn dọc */
+  overflow-x: hidden; /* chặn cuộn ngang */
+  transition: 3s ease;
 }
 .sidebar a {
   display: flex;
@@ -97,11 +186,13 @@
   margin: 0 0.3rem 0 0;
   min-height: 3.5rem;
   cursor: pointer;
-  min-width: 218px;
+  /* min-width: 218px; */
   transition: 0.3s ease;
+  overflow: visible;
 }
 .brand:hover .logo {
   border-radius: 0.7rem;
+  box-shadow: 2px 6px 16.9px 0 rgba(0, 0, 0, 0.25);
 }
 .brand:hover .logo-title img {
   width: 8.2rem;
@@ -151,6 +242,7 @@
   /* gap: 0.2rem; */
   padding: 0.8rem;
   text-align: center;
+  visibility: visible;
 }
 
 .help-title {
@@ -200,9 +292,10 @@
   /* justify-content: center; */
   gap: 0.3rem;
   padding: 0 0 0 1rem;
-  transition: 0.3s ease;
+  transition: 0.5s ease;
   font-weight: 700;
   border-radius: 0.8rem;
+  padding: 0.8rem;
 }
 .settings-btn:hover {
   background: #d4d4d4;
@@ -233,9 +326,36 @@
   transform: translateY(-0.2rem) scaleX(1.1);
 }
 
+@media (max-height: 780px) {
+  .helper {
+    /* visibility: hidden; */
+    display: none;
+    height: auto;
+  }
+  .sidebar .top {
+    max-height: 80vh;
+  }
+}
+
+@media (max-height: 580px) {
+  .sidebar .top {
+    max-height: 70vh;
+  }
+}
+
+@media (max-height: 350px) {
+  .sidebar .top {
+    max-height: 60vh;
+  }
+}
+
 @media (max-width: 800px) {
   .sidebar {
     position: absolute;
-    display: none;
+    transform: translateX(-500px);
+    /* display: none; */
+  }
+  .helper {
+    /* visibility: hidden; */
   }
 }

@@ -17,7 +17,7 @@ import { useState } from "react";
 // eslint-disable-next-line no-unused-vars
 import avatar from "../../public/preview/avatar.png";
 
-// import "./App.css";
+import "./App.css";
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -46,6 +46,10 @@ function App() {
           Status: "active",
           AvatarLink:
             "https://lh3.googleusercontent.com/a/ACg8ocK7gc3KzJcXRYKRFXdq1YkayTOAX4mP-RUa1CQRUURAMv1ZhyhU=s96-c",
+          DOC: "", //"2025-09-2",
+          DateOfBirth: "", //"2008-08-21",
+          Gender: "", //1,
+          Address: "", //"abcxyz",
         };
         console.log(user);
 
@@ -73,16 +77,19 @@ function App() {
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
+          textAlign: "center",
           fontSize: "2rem",
+          padding: "1rem",
         }}
+        className="welcome-box"
       >
         <BlurText
           text={letters}
           delay={100}
-          animateBy="chars"
+          animateBy="words"
           direction="top"
           onAnimationComplete={handleAnimationComplete}
-          className="text-2xl mb-8"
+          className="text-2xl mb-8 welcome-text"
         />
       </div>
     );

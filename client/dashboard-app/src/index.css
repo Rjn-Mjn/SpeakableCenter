@@ -22,13 +22,16 @@
 }
 html,
 body {
-  height: 100%;
+  margin: 0;
+  padding: 0;
+  max-height: 100vh;
   overflow-x: hidden;
+  background-color: rgb(20, 20, 20);
 }
 
 #root {
   width: 100vw;
-  height: 100dvh;
+  max-height: 100vh;
 }
 
 a {
@@ -45,7 +48,8 @@ body {
   display: flex;
   place-items: center;
   /* min-width: 320px; */
-  min-height: 100vh;
+  max-height: 100vh;
+
   overflow: hidden;
 }
 
@@ -99,6 +103,7 @@ button:focus-visible {
   display: flex;
   flex-direction: column;
   overflow: auto;
+  transition: 0.5s ease;
 }
 
 .topbar {
@@ -108,4 +113,27 @@ button:focus-visible {
   justify-content: space-between;
   padding: 0 1rem;
   border-bottom: 1px solid #ccc;
+}
+
+.overlay {
+  position: absolute;
+  background-color: #cccccc5a;
+  height: 100%;
+  width: 100%;
+  z-index: 998;
+  visibility: hidden;
+  display: none;
+}
+
+.overlay.active {
+  visibility: visible;
+}
+
+@media (max-width: 800px) {
+  .overlay {
+    display: flex;
+  }
+  .layout {
+    /* max-height: 90vh; */
+  }
 }

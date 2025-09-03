@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import "../styles/sidebar.css";
 import logo from "../../src/assets/logo-icon.svg";
 import logoTitle from "../../src/assets/logo-title.svg";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import {
   Home,
   ClipboardList,
@@ -58,14 +58,27 @@ const items = [
   },
 ];
 
-export default function Sidebar({ currentUser }) {
+export default function Sidebar({
+  currentUser,
+  isSidebarActive,
+  setIsSidebarActive,
+  isSidebarSmall,
+  setIsSidebarSmall,
+}) {
   console.log(currentUser.RoleName);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   return (
-    <aside className="sidebar">
+    <aside
+      className={`sidebar 
+        ${isSidebarActive ? "active" : ""} 
+        ${isSidebarSmall ? "small" : ""}`}
+    >
       <div className="top">
-        <div className="brand" onClick={() => navigate("/")}>
+        <div
+          className="brand"
+          onClick={() => setIsSidebarSmall((prev) => !prev)}
+        >
           <div className="logo">
             <img src={logo} alt="" />
           </div>
@@ -86,7 +99,7 @@ export default function Sidebar({ currentUser }) {
                 >
                   <span>
                     {item.icon}
-                    {item.label}
+                    <span>{item.label}</span>
                   </span>
                 </NavLink>
               </li>
@@ -105,9 +118,12 @@ export default function Sidebar({ currentUser }) {
           <button class="help-btn">Send message</button>
         </div>
         <div className="utils">
-          <button class="settings-btn">
+          <button
+            class="settings-btn"
+            onClick={() => setIsSidebarActive(false)}
+          >
             <Settings size={25} strokeWidth={2.5} />
-            Settings
+            <span>Settings</span>
           </button>
           <form
             // class="nav-link"
