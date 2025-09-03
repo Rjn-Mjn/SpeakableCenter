@@ -9,10 +9,10 @@ const a = import.meta.env.BASE_URL || "/";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter
-    /////
-    ////
-    ///remove-this
-    // basename={a}
+      /////
+      ////
+      ///remove-this
+      basename={a}
     >
       <App />
     </BrowserRouter>

@@ -41,15 +41,15 @@ function App() {
           Email: "phulgttv00172@gmail.com",
           Fullname: "Peter Lovwood",
           GoogleID: "114097638083625117178",
-          PhoneNumber: null,
+          PhoneNumber: "",
           RoleName: "Students",
           Status: "active",
           AvatarLink:
             "https://lh3.googleusercontent.com/a/ACg8ocK7gc3KzJcXRYKRFXdq1YkayTOAX4mP-RUa1CQRUURAMv1ZhyhU=s96-c",
-          DOC: "", //"2025-09-2",
-          DateOfBirth: "", //"2008-08-21",
-          Gender: "", //1,
-          Address: "", //"abcxyz",
+          DOC: "2025-09-2",
+          DateOfBirth: "2008-08-21",
+          Gender: 1,
+          Address: "abcxyz",
         };
         console.log(user);
 
@@ -74,12 +74,14 @@ function App() {
       <div
         style={{
           height: "100vh",
+          width: "100vw",
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
+          // alignItems: "center",
           textAlign: "center",
           fontSize: "2rem",
           padding: "1rem",
+          // backgroundColor: "red",
         }}
         className="welcome-box"
       >

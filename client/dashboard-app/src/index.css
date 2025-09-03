@@ -127,6 +127,16 @@ button:focus-visible {
 
 .overlay.active {
   visibility: visible;
+  display: flex;
+}
+.overlay.up {
+  z-index: 1001;
+  visibility: visible;
+  display: flex;
+}
+
+.stepper-wwelcom {
+  position: absolute;
 }
 
 @media (max-width: 800px) {

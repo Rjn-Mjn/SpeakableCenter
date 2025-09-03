@@ -15,6 +15,7 @@
   transition: 0.3s ease;
   z-index: 1000;
   height: 95%;
+  /* animation: apear 0.6s ease forwards; */
   /* transition: 0.5s ease; */
 
   /* margin-bottom: 1rem; */
@@ -98,6 +99,25 @@
   to {
     /* font-size: 0rem; */
     opacity: 0;
+  }
+}
+@keyframes apear {
+  from {
+    /* max-width: 100%; hoặc auto, hoặc giá trị đang có */
+    max-width: 5.5vw;
+  }
+  to {
+    max-width: 100rem;
+  }
+}
+@keyframes text-apear {
+  from {
+    /* font-size: 1.5rem; */
+    opacity: 0;
+  }
+  to {
+    /* font-size: 0rem; */
+    opacity: 1;
   }
 }
 /* 

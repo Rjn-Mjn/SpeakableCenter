@@ -1,0 +1,28 @@
+.stepper-welcome {
+  z-index: 1002;
+}
+
+.step-content-default {
+  height: 1rem;
+}
+.phone-field {
+  height: 4rem;
+  margin-top: 1rem;
+  border-radius: 10rem;
+
+  /* margin-bottom: 1rem; */
+}
+.phone-field .form-control {
+  color: black;
+  height: 4rem;
+  border-radius: 10rem;
+  /* margin-top: 1rem; */
+}
+.flag-dropdown {
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.selected-flag {
+  background-color: black;
+  border-radius: 1rem !important;
+}
