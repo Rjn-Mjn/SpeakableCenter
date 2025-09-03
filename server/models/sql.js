@@ -93,13 +93,13 @@ export async function addUser(user) {
   if (user.googleId) {
     request.input("GoogleID", sql.VarChar, user.googleId);
     await request.query(`
-      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, GoogleID, AvatarLink)
-      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @GoogleID, @AvatarLink)
+      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, GoogleID, AvatarLink, DOC)
+      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @GoogleID, @AvatarLink, @DOC)
     `);
   } else {
     await request.query(`
-      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, AvatarLink)
-      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @AvatarLink)
+      INSERT INTO Accounts (Email, PasswordHash, FullName, Status, roleid, AvatarLink, DOC)
+      VALUES (@email, @passwordHash, @fullName, @status, @roleid, @AvatarLink, @DOC)
     `);
   }
 }
