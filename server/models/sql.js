@@ -1,5 +1,6 @@
 import sql from "mssql";
 import dotenv from "dotenv";
+import { log } from "console";
 
 dotenv.config();
 
@@ -76,6 +77,8 @@ export async function getUserByID_session(accountId) {
 export async function addUser(user) {
   const pool = await getPool();
   const now = new Date();
+  console.log(now);
+
   const request = pool
     .request()
     .input("email", sql.VarChar, user.email)
