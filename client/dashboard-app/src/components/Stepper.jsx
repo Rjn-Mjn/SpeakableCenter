@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, Children, useRef, useLayoutEffect } from "react";
 import { motion, AnimatePresence } from "motion/react";
+import { LogOut } from "lucide-react";
 
 import "../styles/Stepper.css";
 
@@ -43,6 +44,8 @@ export default function Stepper({
       updateStep(currentStep - 1);
     }
   };
+
+  const onLogout = () => {};
 
   const handleNext = () => {
     if (!isLastStep) {
@@ -110,7 +113,7 @@ export default function Stepper({
             <div
               className={`footer-nav ${currentStep !== 1 ? "spread" : "end"}`}
             >
-              {currentStep !== 1 && (
+              {currentStep !== 1 ? (
                 <button
                   onClick={handleBack}
                   className={`back-button ${
@@ -120,6 +123,19 @@ export default function Stepper({
                 >
                   {backButtonText}
                 </button>
+              ) : (
+                <form
+                  // class="nav-link"
+                  // id="logoutForm"
+                  action="/api/logout"
+                  method="POST"
+                  // className="back-button"
+                >
+                  <button className={`logout-btn back-button`} type="submit">
+                    Logout
+                    {/* <LogOut size={25} strokeWidth={2.5} /> */}
+                  </button>
+                </form>
               )}
               <button
                 onClick={isLastStep ? handleComplete : handleNext}
@@ -235,7 +251,11 @@ function StepIndicator({
     >
       <motion.div
         variants={{
-          inactive: { scale: 1, backgroundColor: "#222", color: "#a3a3a3" },
+          inactive: {
+            scale: 1,
+            backgroundColor: "#dadadaff",
+            color: "#a3a3a3",
+          },
           active: { scale: 1, backgroundColor: "#5ecbb7", color: "#5ecbb7" },
           complete: { scale: 1, backgroundColor: "#5ecbb7", color: "#5ecbb7" },
         }}
@@ -256,7 +276,7 @@ function StepIndicator({
 
 function StepConnector({ isComplete }) {
   const lineVariants = {
-    incomplete: { width: 0, backgroundColor: "transparent" },
+    incomplete: { width: 0, backgroundColor: "#5ecbb7" },
     complete: { width: "100%", backgroundColor: "#5ecbb7" },
   };
 

@@ -3,17 +3,19 @@ import Stepper, { Step } from "../components/Stepper";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../styles/WelcomeStepper.css";
+import GenderSwitch from "../components/GenderSwitch";
 
 export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [phone, setPhone] = useState("");
   const [name, setName] = useState("");
+  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
+  const [gender, setGender] = useState("male");
 
   function isStepValid(step) {
     if (step === 1) return true; // step 1 không có input → luôn hợp lệ
-    if (step === 2) return true; // step 1 không có input → luôn hợp lệ
-    if (step === 3) return name.trim() !== ""; // step 2 cần nhập name
+    if (step === 2) return name.trim() !== ""; // step 1 không có input → luôn hợp lệ
+    if (step === 3) return true; // step 2 cần nhập name
     if (step === 4) return email.includes("@"); // step 3 cần nhập email
     return true;
   }
@@ -49,17 +51,15 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
         </Step>
 
         <Step>
-          <h2 style={{ color: "black", fontSize: "1.5rem" }}>
-            Let's add your phone number
-          </h2>
+          <GenderSwitch gender={gender} setGender={setGender}></GenderSwitch>
+          {/* <h2>How about an input?</h2>
 
-          <PhoneInput
-            country="vn"
-            value={phone}
-            onChange={(value) => setPhone(value)} // ✅
-            className="phone-field"
-          />
-
+          <input
+            type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Your name?"
+          /> */}
           {/* <img
           style={{
             height: "100px",
@@ -72,17 +72,19 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
           src="https://www.purrfectcatgifts.co.uk/cdn/shop/collections/Funny_Cat_Cards_640x640.png?v=1663150894"
         /> */}
 
-          <p>Custom step content!</p>
+          {/* <p>Custom step content!</p> */}
         </Step>
 
         <Step>
-          <h2>How about an input?</h2>
+          <h2 style={{ color: "black", fontSize: "1.5rem" }}>
+            Let's add your phone number
+          </h2>
 
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your name?"
+          <PhoneInput
+            country="vn"
+            value={phone}
+            onChange={(value) => setPhone(value)} // ✅
+            className="phone-field"
           />
         </Step>
 

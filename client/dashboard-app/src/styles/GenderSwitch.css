@@ -1,0 +1,80 @@
+.gender-container {
+  position: relative;
+  display: flex;
+  width: 250px;
+  background: #e4e4e4;
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.gender-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  background: transparent;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  z-index: 1;
+  transition: color 0.3s ease;
+  color: #5ecbb7;
+  font-weight: 800;
+  font-family: "Baloo 2";
+  font-size: 1.2rem;
+}
+
+.gender-btn.active {
+  color: white;
+  font-weight: 700;
+}
+
+.highlight {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  width: calc(50% - 4px);
+  border-radius: 8px;
+  background: #5ecbb7;
+  transition: transform 0.3s ease;
+  font-size: 3rem;
+}
+
+.highlight.male {
+  /* transform: translateX(0%); */
+  animation: slideMale 0.4s forwards;
+}
+
+.highlight.female {
+  /* transform: translateX(100%); */
+  animation: slideFemale 0.4s forwards;
+}
+
+@keyframes slideMale {
+  0% {
+    transform: translateX(100%) scale(1);
+  }
+  60% {
+    transform: translateX(-10%) scale(0.95); /* overshoot qua trái */
+  }
+  80% {
+    transform: translateX(5%) scale(1.05); /* bật lại */
+  }
+  100% {
+    transform: translateX(0%) scale(1); /* settle tại male */
+  }
+}
+
+@keyframes slideFemale {
+  0% {
+    transform: translateX(0%) scale(1);
+  }
+  60% {
+    transform: translateX(110%) scale(0.95); /* overshoot + co nhẹ */
+  }
+  80% {
+    transform: translateX(95%) scale(1.05); /* bật lại */
+  }
+  100% {
+    transform: translateX(100%) scale(1); /* settle */
+  }
+}

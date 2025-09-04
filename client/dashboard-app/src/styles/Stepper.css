@@ -66,7 +66,9 @@
 }
 
 .footer-nav.end {
-  justify-content: flex-end;
+  justify-content: space-between;
+
+  /* justify-content: flex-end; */
 }
 
 .back-button {
@@ -76,9 +78,18 @@
   color: #a3a3a3;
   cursor: pointer;
 }
+.back-button.logout-btn {
+  border-radius: 0.5rem;
+  padding: 0.25rem 1rem;
+  height: 100%;
+}
 
 .back-button:hover {
   color: #52525b;
+  transform: translateY(-0.2rem) scaleX(1.1);
+}
+.back-button.logout-btn:hover {
+  color: rgb(255, 214, 214);
 }
 
 .back-button.inactive {
@@ -102,6 +113,8 @@
 }
 
 .next-button:hover {
+  transform: translateY(-0.2rem) scaleX(1.1);
+
   background-color: #52ae9d;
 }
 
@@ -144,7 +157,7 @@
   flex: 1;
   overflow: hidden;
   border-radius: 0.25rem;
-  background-color: #52525b;
+  background-color: #ccc;
 }
 
 .step-connector-inner {

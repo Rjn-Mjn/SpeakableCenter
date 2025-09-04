@@ -8,3 +8,7 @@ p.text-2xl.mb-8 {
   justify-content: center;
   /* text-align: center; */
 }
+
+.welcome-box {
+  flex-direction: column !important;
+}
