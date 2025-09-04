@@ -19,6 +19,7 @@ export default function Stepper({
   backButtonText = "Back",
   nextButtonText = "Continue",
   disableStepIndicators = false,
+  isStepValid,
   renderStepIndicator,
   ...rest
 }) {
@@ -86,6 +87,12 @@ export default function Stepper({
                     disableStepIndicators={disableStepIndicators}
                     currentStep={currentStep}
                     onClickStep={(clicked) => {
+                      if (!isStepValid(currentStep) && clicked > currentStep) {
+                        // alert("Please complete this step before moving on!");
+                        // console.log(clicked);
+                        return;
+                      }
+
                       setDirection(clicked > currentStep ? 1 : -1);
                       updateStep(clicked);
                     }}

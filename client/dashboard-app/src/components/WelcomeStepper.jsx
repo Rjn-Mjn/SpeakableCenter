@@ -4,19 +4,27 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import "../styles/WelcomeStepper.css";
 import GenderSwitch from "../components/GenderSwitch";
+// import DatePicker from "react-datepicker";
+// import "react-datepicker/dist/react-datepicker.css";
+import { DatePicker } from "@mantine/dates";
+import "dayjs/locale/en";
+import "@mantine/core/styles.css";
+import "@mantine/dates/styles.css";
 
 export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
   const [currentStep, setCurrentStep] = useState(0);
-  const [name, setName] = useState("");
+  // const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [gender, setGender] = useState("male");
+  const [dob, setDob] = useState(null);
 
   function isStepValid(step) {
     if (step === 1) return true; // step 1 không có input → luôn hợp lệ
-    if (step === 2) return name.trim() !== ""; // step 1 không có input → luôn hợp lệ
-    if (step === 3) return true; // step 2 cần nhập name
-    if (step === 4) return email.includes("@"); // step 3 cần nhập email
+    if (step === 2) return true; //name.trim() !== ""; // step 1 không có input → luôn hợp lệ
+    if (step === 3) return phone.replace(/\D/g, "").length > 10; //true; // step 2 cần nhập name
+    if (step === 4) return true;
+    if (step === 5) return true; //email.includes("@"); // step 3 cần nhập email
     return true;
   }
 
@@ -36,9 +44,17 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
           disabled: !isStepValid(currentStep),
           className: !isStepValid(currentStep) ? "next-button" : "next-button",
         }}
+        isStepValid={isStepValid}
       >
         <Step>
-          <h2 style={{ color: "black", fontSize: "2rem" }}>
+          <h2
+            style={{
+              color: "black",
+              fontSize: "2rem",
+              lineHeight: "2rem",
+              marginBottom: "0.5rem",
+            }}
+          >
             Welcome to
             <br />
             Speakable Center!
@@ -51,33 +67,25 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
         </Step>
 
         <Step>
+          <h2
+            style={{
+              color: "black",
+              marginBottom: "1rem",
+              lineHeight: "2rem",
+              fontSize: "1.5rem",
+            }}
+            className="gender"
+          >
+            Just tell us your gender
+            <br />
+            so we can set up your profile!
+          </h2>
           <GenderSwitch gender={gender} setGender={setGender}></GenderSwitch>
-          {/* <h2>How about an input?</h2>
-
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your name?"
-          /> */}
-          {/* <img
-          style={{
-            height: "100px",
-            width: "100%",
-            objectFit: "cover",
-            objectPosition: "center -70px",
-            borderRadius: "15px",
-            marginTop: "1em",
-          }}
-          src="https://www.purrfectcatgifts.co.uk/cdn/shop/collections/Funny_Cat_Cards_640x640.png?v=1663150894"
-        /> */}
-
-          {/* <p>Custom step content!</p> */}
         </Step>
 
         <Step>
           <h2 style={{ color: "black", fontSize: "1.5rem" }}>
-            Let's add your phone number
+            Let's add your phone number!
           </h2>
 
           <PhoneInput
@@ -86,6 +94,20 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
             onChange={(value) => setPhone(value)} // ✅
             className="phone-field"
           />
+        </Step>
+
+        <Step>
+          <h2 style={{ color: "black", fontSize: "1.5rem" }}>
+            Your birthday please! We’d love to celebrate it with you
+          </h2>
+          <DatePicker value={dob} onChange={setDob} className="date-picker" />
+          {/* <DatePicker
+            selected={dob}
+            onChange={(date) => setDob(date)}
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+          /> */}
         </Step>
 
         <Step>

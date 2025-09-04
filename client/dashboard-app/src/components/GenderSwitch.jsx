@@ -11,13 +11,13 @@ export default function GenderSwitch({ gender, setGender }) {
         className={`gender-btn ${gender === "male" ? "active" : ""}`}
         onClick={() => setGender("male")}
       >
-        Nam
+        MALE
       </button>
       <button
         className={`gender-btn ${gender === "female" ? "active" : ""}`}
         onClick={() => setGender("female")}
       >
-        Nữ
+        FEMALE
       </button>
     </div>
   );
