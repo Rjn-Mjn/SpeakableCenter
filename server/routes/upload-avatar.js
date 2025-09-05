@@ -9,7 +9,7 @@ const memoryUpload = multer({
 }).single("avatar");
 
 // middleware express để handle upload + forward
-function uploadAvatarHandler(req, res, next) {
+export default function uploadAvatarHandler(req, res, next) {
   memoryUpload(req, res, async function (err) {
     if (err) return res.status(400).json({ error: err.message });
 
@@ -56,5 +56,3 @@ function uploadAvatarHandler(req, res, next) {
     }
   });
 }
-
-module.exports = { uploadAvatarHandler };
