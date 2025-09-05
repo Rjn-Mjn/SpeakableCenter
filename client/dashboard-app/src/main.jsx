@@ -12,10 +12,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <MantineProvider>
       <BrowserRouter
-        /////
-        ////
-        ///remove-this
-        basename={a}
+      /////
+      ////
+      ///remove-this
+      // basename={a}
       >
         <ClickSpark
           sparkColor="#69ddc8"

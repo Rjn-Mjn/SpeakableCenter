@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Stepper, { Step } from "../components/Stepper";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -10,8 +10,15 @@ import { DatePicker } from "@mantine/dates";
 import "dayjs/locale/en";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
+import { Pen } from "lucide-react";
+import axios from "axios";
 
-export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
+export default function WelcomeStepper({
+  className,
+  isBlank,
+  setIsBlank,
+  currentUser,
+}) {
   const [currentStep, setCurrentStep] = useState(0);
   // const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -19,7 +26,11 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
   // const [email, setEmail] = useState("");
   const [gender, setGender] = useState("male");
   const [dob, setDob] = useState(null);
-  // const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
+  const [file, setFile] = useState(null);
+  const [preview, setPreview] = useState(currentUser.AvatarLink); // để preview ảnh
+  const fileInputRef = useRef(null);
+  const [loading, setLoading] = useState(false);
+  const [avatarLink, setAvatarLink] = useState("");
 
   function isStepValid(step) {
     if (step === 1) return true; // step 1 không có input → luôn hợp lệ
@@ -30,6 +41,56 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
     return true;
   }
 
+  const handleClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleChange = (e) => {
+    const selectedFile = e.target.files[0];
+    setFile(selectedFile);
+
+    // tạo preview
+    if (selectedFile) {
+      const objectUrl = URL.createObjectURL(selectedFile);
+      setPreview(objectUrl);
+    } else {
+      setPreview(null);
+    }
+  };
+
+  const handleUploaded = (newAvatarUrl) => {
+    setPreview(newAvatarUrl); // cập nhật avatar hiển thị
+  };
+
+  const handleUpload = async () => {
+    if (!file) return alert("Choose a file first!");
+    setLoading(true);
+
+    try {
+      e.preventDefault();
+      if (!file) return;
+
+      const fd = new FormData();
+      fd.append("avatar", file);
+      // nếu cần userId:
+      fd.append("AccountID", currentUser.AccountID);
+
+      const resp = await axios.post("https://audiox.space/upload-avatar", fd, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      console.log(resp.data); // { ok: true, url: 'http://27.75.93.31:5001/avatars/...' }
+      // lưu url vào local state / hiển thị
+      setAvatarLink(resp.data);
+      handleUploaded(resp.data.avatarLink);
+    } catch (err) {
+      console.error(err);
+      alert("Upload failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   if (isBlank) {
     return (
       <Stepper
@@ -39,7 +100,7 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
           setCurrentStep(step);
           console.log(step);
         }}
-        onFinalStepCompleted={() => console.log("All steps completed!")}
+        onFinalStepCompleted={() => handleUpload()}
         backButtonText="Previous"
         nextButtonText="Next"
         nextButtonProps={{
@@ -131,8 +192,37 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
         <Step>
           <h2 style={{ color: "black", fontSize: "1.5rem" }}>
             Your profile, your style! <br />
-            Pick an avatar you like.
+            Change avatar to fit your type.
           </h2>
+
+          <div className="avatar-container">
+            <div className="avatar-browse" onClick={handleClick}>
+              <input
+                type="file"
+                accept="image/*"
+                onChange={handleChange}
+                ref={fileInputRef}
+                style={{ position: "absolute", display: "none" }}
+              />
+              <div className="edit-icon">
+                <Pen size={25} strokeWidth={3}></Pen>
+              </div>
+              {
+                <div style={{ width: "100%", height: "100%" }}>
+                  <img
+                    src={preview}
+                    alt="avatar preview"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      borderRadius: "50%",
+                    }}
+                  />
+                </div>
+              }
+            </div>
+          </div>
         </Step>
 
         <Step>

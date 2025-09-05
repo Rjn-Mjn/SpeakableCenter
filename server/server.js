@@ -19,6 +19,7 @@ import { fileURLToPath } from "url";
 import loginRouter from "./routes/login.js";
 import registerRouter from "./routes/register.js";
 import googleCallbackRouter from "./routes/googleAuthCallback.js";
+import uploadAvatarHandler from "./routes/upload-avatar.js";
 
 // Import middleware
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
@@ -440,6 +441,8 @@ app.get("/api/me", requireAuthApi, (req, res) => {
 
   res.json(u);
 });
+
+app.get("/api/upload-avatar", uploadAvatarHandler);
 
 // ========== PAGE ROUTES ==========
 // Serve HTML pages

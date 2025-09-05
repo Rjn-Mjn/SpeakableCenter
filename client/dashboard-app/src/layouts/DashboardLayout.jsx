@@ -32,6 +32,7 @@ export default function DashboardLayout({ currentUser }) {
         className="stepper-welcome"
         isBlank={isBlank}
         setIsBlank={setIsBlank}
+        currentUser={currentUser}
       ></WelcomeStepper>
       <Sidebar
         currentUser={currentUser}

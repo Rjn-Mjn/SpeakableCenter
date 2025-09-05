@@ -30,6 +30,13 @@ export default function Stepper({
   const isCompleted = currentStep > totalSteps;
   const isLastStep = currentStep === totalSteps;
 
+  function areStepsValidUntil(targetStep) {
+    for (let i = 1; i < targetStep; i++) {
+      if (!isStepValid(i)) return false;
+    }
+    return true;
+  }
+
   const updateStep = (newStep) => {
     setCurrentStep(newStep);
     if (newStep > totalSteps) {
@@ -87,7 +94,7 @@ export default function Stepper({
                     disableStepIndicators={disableStepIndicators}
                     currentStep={currentStep}
                     onClickStep={(clicked) => {
-                      if (!isStepValid(currentStep) && clicked > currentStep) {
+                      if (!areStepsValidUntil(clicked)) {
                         // alert("Please complete this step before moving on!");
                         // console.log(clicked);
                         return;
