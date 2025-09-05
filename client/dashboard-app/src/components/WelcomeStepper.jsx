@@ -15,16 +15,18 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
   const [currentStep, setCurrentStep] = useState(0);
   // const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  // const [email, setEmail] = useState("");
   const [gender, setGender] = useState("male");
   const [dob, setDob] = useState(null);
+  // const [coordinates, setCoordinates] = useState({ lat: null, lng: null });
 
   function isStepValid(step) {
     if (step === 1) return true; // step 1 không có input → luôn hợp lệ
     if (step === 2) return true; //name.trim() !== ""; // step 1 không có input → luôn hợp lệ
-    if (step === 3) return phone.replace(/\D/g, "").length > 10; //true; // step 2 cần nhập name
+    if (step === 3) return phone.replace(/\D/g, "").length > 9; //true; // step 2 cần nhập name
     if (step === 4) return true;
-    if (step === 5) return true; //email.includes("@"); // step 3 cần nhập email
+    if (step === 5) return address.trim() !== ""; //email.includes("@"); // step 3 cần nhập email
     return true;
   }
 
@@ -76,7 +78,7 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
             }}
             className="gender"
           >
-            Just tell us your gender
+            Just tell us your <span className="gender-highlight">gender</span>
             <br />
             so we can set up your profile!
           </h2>
@@ -98,7 +100,8 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
 
         <Step>
           <h2 style={{ color: "black", fontSize: "1.5rem" }}>
-            Your birthday please! We’d love to celebrate it with you
+            Your birthday please! <br />
+            We’d love to celebrate it with you
           </h2>
           <DatePicker value={dob} onChange={setDob} className="date-picker" />
           {/* <DatePicker
@@ -111,14 +114,25 @@ export default function WelcomeStepper({ className, isBlank, setIsBlank }) {
         </Step>
 
         <Step>
-          <h2>Whats your email?</h2>
+          <h2>What’s your address?</h2>
+          <p>Don’t worry, it stays safe with us 🔒 </p>
 
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Your name?"
-          />
+          <div className="address-box">
+            <input
+              className="address-input"
+              type="text"
+              value={address}
+              onChange={(e) => setAddress(e.target.value)}
+              placeholder="E.g., 65 Hưng Định 07, Hưng Thọ, Thuận An, Hồ Chí Minh?"
+            />
+          </div>
+        </Step>
+
+        <Step>
+          <h2 style={{ color: "black", fontSize: "1.5rem" }}>
+            Your profile, your style! <br />
+            Pick an avatar you like.
+          </h2>
         </Step>
 
         <Step>

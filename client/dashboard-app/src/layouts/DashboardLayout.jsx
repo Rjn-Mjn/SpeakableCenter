@@ -4,6 +4,7 @@ import Sidebar from "../components/Sidebar";
 import Topbar from "../components/Topbar";
 import FloatMenu from "../components/FloatMenu";
 import WelcomeStepper from "../components/WelcomeStepper";
+import ClickSpark from "../components/ClickSpark";
 // import Stepper, { Step } from "../components/Stepper";
 
 export default function DashboardLayout({ currentUser }) {

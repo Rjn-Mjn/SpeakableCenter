@@ -2,9 +2,11 @@
   position: relative;
   display: flex;
   width: 250px;
-  background: #e4e4e4;
+  background: #e4e4e4bc;
   border-radius: 12px;
-  padding: 4px;
+  padding: 0.3rem;
+  /* box-shadow: 2px 6px 16.9px 0 rgba(0, 0, 0, 0.112); */
+  margin-bottom: 1rem;
 }
 
 .gender-btn {
@@ -17,21 +19,21 @@
   cursor: pointer;
   z-index: 1;
   transition: color 0.3s ease;
-  color: #5ecbb7;
+  /* color: #5ecbb7; */
   font-weight: 800;
   font-family: "Baloo 2";
   font-size: 1.2rem;
 }
 
 .gender-btn.active {
-  color: white;
+  color: white !important;
   font-weight: 700;
 }
 
 .gender-container .highlight {
   position: absolute;
-  top: 4px;
-  bottom: 4px;
+  top: 0.3rem;
+  bottom: 0.3rem;
   width: calc(50% - 4px);
   border-radius: 8px;
   background: #5ecbb7;
@@ -43,10 +45,15 @@
   /* transform: translateX(0%); */
   animation: slideMale 0.4s forwards;
 }
-
+.highlight.male ~ .gender-btn {
+  color: rgb(156, 130, 252);
+}
 .highlight.female {
   /* transform: translateX(100%); */
   animation: slideFemale 0.4s forwards;
+}
+.highlight.female ~ .gender-btn {
+  color: rgb(112, 174, 249);
 }
 
 @keyframes slideMale {

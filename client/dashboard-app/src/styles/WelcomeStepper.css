@@ -3,7 +3,6 @@
 }
 
 .step-content-default {
-  /* height: 10rem !important; */
 }
 .back-button {
   background-color: rgb(206, 206, 206);
@@ -13,8 +12,12 @@
   background-color: rgb(191, 191, 191);
   color: white;
 }
-.gender {
-  /* font-family: "Baloo 2"; */
+.gender-highlight {
+  background: linear-gradient(102deg, #ec4888 29.99%, #4e73f0 70.01%);
+  -webkit-background-clip: text; /* cho Chrome, Safari */
+  -webkit-text-fill-color: transparent; /* cho Chrome, Safari */
+  background-clip: text; /* cho Firefox mới */
+  color: transparent; /* fallback */
 }
 
 .phone-field {
@@ -129,4 +132,124 @@
 }
 .m_396ce5cb:hover {
   background-color: #e9e9e9b2 !important;
+}
+/* Hiệu ứng fade + slide khi chuyển tháng/năm */
+.mantine-DatePicker-calendar {
+  animation: fadeSlideIn 0.3s ease;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Nút prev/next tháng/năm (hover + click animation) */
+.mantine-DatePicker-calendarHeader button {
+  transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.mantine-DatePicker-calendarHeader button:hover {
+  transform: scale(1.15);
+  background: rgba(201, 201, 201, 0.235) !important;
+}
+
+.mantine-DatePicker-calendarHeader button:active {
+  transform: scale(0.9);
+}
+
+/* Animation cho từng ngày khi render */
+.mantine-DatePicker-day {
+  transition: transform 0.15s ease, background 0.2s ease, color 0.2s ease;
+}
+
+.mantine-DatePicker-day:hover {
+  transform: scale(1.2);
+  /* background: #f3f0ff; */
+  /* color: #5227ff; */
+  /* border-radius: 6px; */
+}
+
+.mantine-DatePicker-day:active {
+  transform: scale(0.9);
+}
+
+/* Khi chuyển chế độ month/year */
+.mantine-DatePicker-monthLevel,
+.mantine-DatePicker-yearLevel {
+  animation: zoomIn 0.25s ease;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+.mantine-DatePicker-calendarHeaderLevel {
+  margin: 0rem 1rem;
+  /* width: 1rem !important; */
+  padding: 1rem 1rem !important;
+}
+
+/* Highlight cho ngày được chọn */
+.mantine-DatePicker-day[data-selected="true"] {
+  /* background: #5227ff !important; */
+  color: white !important;
+  border-radius: 8px;
+  transform: scale(1.05);
+  transition: all 0.2s ease;
+}
+.mantine-DatePicker-monthsListControl,
+.mantine-DatePicker-yearsListControl {
+  transition: all 0.2s ease;
+  border-radius: 16px !important;
+}
+.mantine-DatePicker-monthsListControl:hover,
+.mantine-DatePicker-yearsListControl:hover {
+  background: rgba(201, 201, 201, 0.235) !important;
+  transform: scale(1.2);
+}
+.mantine-DatePicker-monthsListControl[data-selected="true"],
+.mantine-DatePicker-yearsListControl[data-selected="true"] {
+  background-color: #69ddc8;
+}
+.mantine-DatePicker-monthsListControl[data-selected="true"]:hover,
+.mantine-DatePicker-yearsListControl[data-selected="true"]:hover {
+  background-color: #64d1bd !important;
+}
+
+.address-box {
+  border-radius: 1rem;
+  border: 2px solid black;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+.address-box:hover {
+  transform: scaley(1.1);
+}
+.address-input {
+  background-color: rgb(242, 242, 242);
+  color: black;
+  padding: 1rem;
+  border-radius: 1rem;
+  outline: none;
+  border: none;
+  /* border: 1px solid black; */
+  width: 100%;
+  transition: all 0.3s ease;
+}
+.address-input:focus {
+  transform: scale(1.1);
+  border: 3px solid #64d1bd;
 }
