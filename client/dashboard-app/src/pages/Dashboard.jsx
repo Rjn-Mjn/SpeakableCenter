@@ -6,7 +6,7 @@ export default function Dashboard() {
   // frontend
 
   return (
-    <div>
+    <div class="dashboard-content">
       <div class="dashboard-container">
         <div class="welcome-card">
           <h1 class="welcome-title">Welcome to Your Dashboard!</h1>

@@ -1,0 +1,63 @@
+.hours-activity-card {
+  /* background: #fff; */
+  border-radius: 16px;
+  /* box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); */
+  /* padding: 16px; */
+  width: 100%;
+  /* max-width: 380px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-header {
+  display: flex;
+  /* justify-content: space-between; */
+  /* align-items: center; */
+
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  margin-left: 1rem;
+  flex-direction: row;
+  gap: 1rem;
+}
+
+.card-title-activity {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.card-stats {
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  gap: 4px;
+  font-size: 12px;
+}
+
+.hours-activity-card .card-icon-status {
+  position: relative;
+  color: black;
+  background: #e6e6e6;
+  height: 1.5rem;
+  width: auto;
+  padding: 0.3rem;
+  border-radius: 0.5rem;
+  /* color: #16a34a; xanh lá */
+}
+
+.card-percentage {
+  font-weight: 500;
+  color: #16a34a;
+}
+
+.card-subtext {
+  color: #888;
+  font-size: 12px;
+}
+
+.chart-container {
+  height: 100%; /* chỉnh chiều cao chart */
+  transform: translateX(-1rem);
+}

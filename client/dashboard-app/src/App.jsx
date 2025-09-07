@@ -18,6 +18,8 @@ import { useState } from "react";
 import avatar from "../../public/preview/avatar.png";
 
 import "./App.css";
+import AccountsManager from "./pages/Accounts-managers";
+import Home from "./pages/Home";
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
@@ -40,9 +42,9 @@ function App() {
           AccountID: 21,
           Email: "phulgttv00172@gmail.com",
           Fullname: "Peter Lovwood",
-          GoogleID: "114097638083625117178",
-          PhoneNumber: "",
-          RoleName: "Students",
+          // GoogleID: "114097638083625117178",
+          PhoneNumber: "84911556656",
+          RoleName: "Admin",
           Status: "active",
           AvatarLink:
             "https://lh3.googleusercontent.com/a/ACg8ocK7gc3KzJcXRYKRFXdq1YkayTOAX4mP-RUa1CQRUURAMv1ZhyhU=s96-c",
@@ -117,8 +119,9 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<DashboardLayout currentUser={user} />}>
-            <Route index element={<Dashboard currentUser={user} />} />
+            <Route index element={<Home currentUser={user} />} />
             <Route path="task" element={<Task />} />
+            <Route path="accounts-management" element={<AccountsManager />} />
             <Route path="ai-feedback" element={<History />} />
             <Route path="materials" element={<Schedule />} />
             <Route path="schedules" element={<Schedule />} />

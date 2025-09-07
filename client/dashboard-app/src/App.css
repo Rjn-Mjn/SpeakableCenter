@@ -12,3 +12,10 @@ p.text-2xl.mb-8 {
 .welcome-box {
   flex-direction: column !important;
 }
+
+.content {
+  overflow: hidden;
+  margin-top: 0.5rem;
+  height: 100%;
+  padding-bottom: 1rem;
+}

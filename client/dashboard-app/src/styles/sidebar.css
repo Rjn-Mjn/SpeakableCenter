@@ -14,7 +14,7 @@
   /* min-width: 10rem; */
   transition: 0.3s ease;
   z-index: 1000;
-  height: 95%;
+  /* height: 95%; */
   /* animation: apear 0.6s ease forwards; */
   /* transition: 0.5s ease; */
 
@@ -160,6 +160,11 @@
   overflow-y: scroll; /* chỉ cuộn dọc */
   overflow-x: hidden; /* chặn cuộn ngang */
   transition: 3s ease;
+  scrollbar-width: none;
+}
+
+.sidebar ul::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 .sidebar a {
   display: flex;
@@ -188,6 +193,9 @@
   background: #63e4cc;
   color: white;
 }
+.sidebar a.nav-active:hover span {
+  transform: scale(1);
+}
 .sidebar a:hover {
   color: #0e0e0e;
   background: rgba(112, 112, 112, 0.2);
@@ -196,6 +204,9 @@
 }
 .sidebar a:hover span {
   transform: scale(1.1);
+}
+.sidebar a:hover:active span {
+  transform: scale(1) !important;
 }
 
 .brand {

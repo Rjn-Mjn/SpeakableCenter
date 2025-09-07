@@ -2,18 +2,29 @@ import React from "react";
 import "../styles/Topbar.css";
 import { Bell } from "lucide-react";
 import FloatMenu from "./FloatMenu";
+import { useLocation } from "react-router-dom";
+import SearchAccounts from "./Search-accounts";
 
 export default function Topbar({
   currentUser,
   isSidebarActive,
   setIsSidebarActive,
+  avatarUrl,
 }) {
+  console.log("AvatarLink: ", avatarUrl);
   console.log("sidebar status: ", isSidebarActive);
+
+  const location = useLocation();
+  const showGreeting = ["/"].includes(location.pathname);
+  const showSearchAccounts = ["/accounts-management"].includes(
+    location.pathname
+  );
 
   return (
     <nav class="navbar">
       <div class="nav-logo">
-        <h1>Welcome back, dear~</h1>
+        {showGreeting && <h1>Welcome back, dear~</h1>}
+        {showSearchAccounts && <SearchAccounts />}
         {/* <img src="../assets/Images/Logo.png" alt="Speakable Logo" /> */}
       </div>
       <FloatMenu
@@ -28,10 +39,12 @@ export default function Topbar({
         <a href="#" class="nav-link profile ">
           <img
             className="avatar"
-            src={currentUser.AvatarLink}
+            src={`https://audiox.space/api/avatar?url=${encodeURIComponent(
+              avatarUrl
+            )}`}
             alt=""
             referrerPolicy="no-referrer"
-            crossOrigin="anonymous"
+            // crossOrigin="anonymous"
           />
           <p>{currentUser.Fullname}</p>
         </a>

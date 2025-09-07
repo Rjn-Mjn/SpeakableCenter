@@ -13,13 +13,18 @@ import http from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import accountRoutes from "./routes/accountRouter.js";
 // import path from "path";
 
 // Import routes
 import loginRouter from "./routes/login.js";
 import registerRouter from "./routes/register.js";
 import googleCallbackRouter from "./routes/googleAuthCallback.js";
-import uploadAvatarHandler from "./routes/upload-avatar.js";
+import { uploadAvatarHandler } from "./routes/upload-avatar.js";
+import { updateGenderRouter } from "./routes/gender.js";
+import { updatePhoneRouter } from "./routes/phone.js";
+import { updateDOBRouter } from "./routes/dob.js";
+import { updateAddressRouter } from "./routes/address.js";
 
 // Import middleware
 import { errorHandler, notFound } from "./middleware/errorHandler.js";
@@ -320,9 +325,29 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // ========== API ROUTES ==========
+//fake user
+// middleware fake user (chỉ dev)
+// app.use((req, res, next) => {
+//   req.isAuthenticated = () => true;
+//   req.user = {
+//     AccountID: 1,
+//     FullName: "Dev Admin",
+//     RoleName: "Admin",
+//   };
+//   next();
+// });
+
 app.use("/api/login", authLimiter, loginRouter);
 app.use("/api/register", authLimiter, registerRouter);
 // app.use("/api/auth/google", googleCallbackRouter);
+
+app.use("/api/accounts", accountRoutes);
+
+app.post("/api/upload-avatar", uploadAvatarHandler);
+app.post("/api/set-gender", updateGenderRouter);
+app.post("/api/set-phone", updatePhoneRouter);
+app.post("/api/set-dob", updateDOBRouter);
+app.post("/api/set-address", updateAddressRouter);
 
 // Google OAuth routes
 app.get(
@@ -442,7 +467,30 @@ app.get("/api/me", requireAuthApi, (req, res) => {
   res.json(u);
 });
 
-app.get("/api/upload-avatar", uploadAvatarHandler);
+app.get("/api/avatar", async (req, res) => {
+  const { url } = req.query;
+  if (!url) {
+    return res.status(400).json({ error: "Missing avatar URL" });
+  }
+
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      return res.status(404).json({ error: "Avatar not found" });
+    }
+
+    // Copy content-type (image/jpeg, image/png, ...)
+    res.setHeader("Content-Type", response.headers.get("content-type"));
+
+    // Đọc dữ liệu và gửi về
+    const buffer = Buffer.from(await response.arrayBuffer());
+    res.send(buffer);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Error fetching avatar" });
+  }
+});
 
 // ========== PAGE ROUTES ==========
 // Serve HTML pages
@@ -495,6 +543,21 @@ app.get("/", (req, res, next) => {
     }
   } else {
     res.sendFile(path.join(__dirname, "../client/src/pages/HomePage.html"));
+  }
+});
+
+app.get("/accounts-management", (req, res, next) => {
+  if (req.isAuthenticated && req.isAuthenticated()) {
+    if (req.user.Status === "active" && req.user.RoleName !== "Guest") {
+      // res.sendFile(path.join(__dirname, "../client/src/pages/Dashboard.html"));
+      res.sendFile(
+        path.join(__dirname, "../client/public/dashboard/index.html")
+      );
+    } else {
+      redirectByStatus(req, res);
+    }
+  } else {
+    res.redirect("/");
   }
 });
 

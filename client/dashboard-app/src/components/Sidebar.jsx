@@ -16,6 +16,7 @@ import {
   LogOut,
   Settings2,
   Settings,
+  GraduationCap,
 } from "lucide-react";
 // import sidebarBottom from "../assets/sidebar-bottom.svg";
 
@@ -27,35 +28,41 @@ const items = [
     icon: <Home size={25} strokeWidth={2.5} />,
   },
   {
-    to: "/task",
-    label: "Tasks",
-    roles: ["Admin", "Students", "Moderator"],
-    icon: <ClipboardList size={25} strokeWidth={2.5} />,
+    to: "/accounts-management",
+    label: "Accounts",
+    roles: ["Admin", "Moderator"],
+    icon: <GraduationCap size={25} strokeWidth={2.5} />,
   },
-  {
-    to: "/ai-feedback",
-    label: "AI Feedback",
-    roles: ["Admin", "Students", "Moderator"],
-    icon: <Bot size={25} strokeWidth={2.5} />,
-  },
-  {
-    to: "/materials",
-    label: "Materials",
-    roles: ["Admin", "Students", "Moderator"],
-    icon: <LibraryBig size={25} strokeWidth={2.5} />,
-  },
-  {
-    to: "/schedules",
-    label: "Schedules",
-    roles: ["Admin", "Students", "Moderator"],
-    icon: <CalendarCheck2 size={25} strokeWidth={2.5} />,
-  },
-  {
-    to: "/history",
-    label: "History",
-    roles: ["Admin", "Students", "Moderator"],
-    icon: <History size={25} strokeWidth={2.5} />,
-  },
+  // {
+  //   to: "/task",
+  //   label: "Tasks",
+  //   roles: ["Admin", "Students", "Moderator"],
+  //   icon: <ClipboardList size={25} strokeWidth={2.5} />,
+  // },
+  // {
+  //   to: "/ai-feedback",
+  //   label: "AI Feedback",
+  //   roles: ["Admin", "Students", "Moderator"],
+  //   icon: <Bot size={25} strokeWidth={2.5} />,
+  // },
+  // {
+  //   to: "/materials",
+  //   label: "Materials",
+  //   roles: ["Admin", "Students", "Moderator"],
+  //   icon: <LibraryBig size={25} strokeWidth={2.5} />,
+  // },
+  // {
+  //   to: "/schedules",
+  //   label: "Schedules",
+  //   roles: ["Admin", "Students", "Moderator"],
+  //   icon: <CalendarCheck2 size={25} strokeWidth={2.5} />,
+  // },
+  // {
+  //   to: "/history",
+  //   label: "History",
+  //   roles: ["Admin", "Students", "Moderator"],
+  //   icon: <History size={25} strokeWidth={2.5} />,
+  // },
 ];
 
 export default function Sidebar({

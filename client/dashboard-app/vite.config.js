@@ -12,4 +12,10 @@ export default defineConfig({
     ),
     emptyOutDir: true,
   },
+  server: {
+    historyApiFallback: true,
+  },
+  preview: {
+    historyApiFallback: true,
+  },
 });

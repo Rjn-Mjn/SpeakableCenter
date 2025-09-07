@@ -11,35 +11,57 @@ import "dayjs/locale/en";
 import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import { Pen } from "lucide-react";
-import axios from "axios";
+import uploadAvatar from "../../services/upload-avatar";
+import handleSetGender from "../../services/update-gender";
+import handleSetPhone from "../../services/update-phone";
+import handleSetDOB from "../../services/update-dob";
+import handleSetAddress from "../../services/update-address";
 
 export default function WelcomeStepper({
   className,
   isBlank,
-  setIsBlank,
+  // setIsBlank,
   currentUser,
+  avatarUrl,
+  setAvatarUrl,
+  setLoading,
 }) {
+  // eslint-disable-next-line no-unused-vars
+  const [genderBit, setGenderBit] = useState(
+    Number(currentUser.Gender) // true -> 1, false -> 0
+  );
   const [currentStep, setCurrentStep] = useState(0);
   // const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  // const [email, setEmail] = useState("");
-  const [gender, setGender] = useState("male");
-  const [dob, setDob] = useState(null);
+  const [phone, setPhone] = useState(currentUser?.PhoneNumber || "");
+  const [address, setAddress] = useState(currentUser?.Address || "");
+  const [gender, setGender] = useState(currentUser.Gender ? "male" : "female");
+  const [dob, setDob] = useState(
+    currentUser?.DateOfBirth ? new Date(currentUser.DateOfBirth) : null
+  );
   const [file, setFile] = useState(null);
-  const [preview, setPreview] = useState(currentUser.AvatarLink); // để preview ảnh
+  const [preview, setPreview] = useState(
+    `https://audiox.space/api/avatar?url=${encodeURIComponent(avatarUrl)}`
+  ); // để preview ảnh
   const fileInputRef = useRef(null);
-  const [loading, setLoading] = useState(false);
-  const [avatarLink, setAvatarLink] = useState("");
+
+  console.log("DOB From DB: ", dob);
 
   function isStepValid(step) {
     if (step === 1) return true; // step 1 không có input → luôn hợp lệ
     if (step === 2) return true; //name.trim() !== ""; // step 1 không có input → luôn hợp lệ
     if (step === 3) return phone.replace(/\D/g, "").length > 9; //true; // step 2 cần nhập name
-    if (step === 4) return true;
-    if (step === 5) return address.trim() !== ""; //email.includes("@"); // step 3 cần nhập email
+    if (step === 4) return dob !== null;
+    if (step === 5) return address.trim() !== "" || address.trim().length > 10; //email.includes("@"); // step 3 cần nhập email
+    if (step === 6) return file !== ""; //email.includes("@"); // step 3 cần nhập email
     return true;
   }
+
+  // function handleAddInfoComplete() {
+  //   setTimeout(() => {
+  //     setLoading(false);
+  //     setIsBlank(false);
+  //   }, 1000);
+  // }
 
   const handleClick = () => {
     fileInputRef.current.click();
@@ -58,38 +80,34 @@ export default function WelcomeStepper({
     }
   };
 
-  const handleUploaded = (newAvatarUrl) => {
-    setPreview(newAvatarUrl); // cập nhật avatar hiển thị
-  };
-
-  const handleUpload = async () => {
-    if (!file) return alert("Choose a file first!");
+  async function handleSubmit() {
     setLoading(true);
 
-    try {
-      e.preventDefault();
-      if (!file) return;
-
-      const fd = new FormData();
-      fd.append("avatar", file);
-      // nếu cần userId:
-      fd.append("AccountID", currentUser.AccountID);
-
-      const resp = await axios.post("https://audiox.space/upload-avatar", fd, {
-        headers: { "Content-Type": "multipart/form-data" },
-      });
-
-      console.log(resp.data); // { ok: true, url: 'http://27.75.93.31:5001/avatars/...' }
-      // lưu url vào local state / hiển thị
-      setAvatarLink(resp.data);
-      handleUploaded(resp.data.avatarLink);
-    } catch (err) {
-      console.error(err);
-      alert("Upload failed");
-    } finally {
-      setLoading(false);
+    console.log(file);
+    if (file) {
+      const url = await uploadAvatar(file, currentUser.AccountID);
+      console.log("Link received: ");
+      setAvatarUrl(url);
     }
-  };
+
+    console.log("Gender: ", gender);
+    const bit = gender === "male" ? 1 : 0;
+    setGenderBit(bit); // vẫn cập nhật state cho UI
+    console.log("GenderBit: ", bit);
+    await handleSetGender(bit, currentUser.AccountID); // ✅ dùng đúng giá trị
+
+    console.log("Phone: ", phone);
+    await handleSetPhone(phone, currentUser.AccountID);
+
+    console.log("Date of birth: ", dob);
+    await handleSetDOB(dob, currentUser.AccountID);
+
+    console.log("Adrress: ", address);
+    await handleSetAddress(address, currentUser.AccountID);
+    // setIsBlank(false);
+
+    // handleAddInfoComplete();
+  }
 
   if (isBlank) {
     return (
@@ -100,7 +118,7 @@ export default function WelcomeStepper({
           setCurrentStep(step);
           console.log(step);
         }}
-        onFinalStepCompleted={() => handleUpload()}
+        onFinalStepCompleted={() => handleSubmit()}
         backButtonText="Previous"
         nextButtonText="Next"
         nextButtonProps={{
@@ -156,6 +174,7 @@ export default function WelcomeStepper({
             value={phone}
             onChange={(value) => setPhone(value)} // ✅
             className="phone-field"
+            // data-next-on-enter="true"
           />
         </Step>
 
@@ -164,7 +183,13 @@ export default function WelcomeStepper({
             Your birthday please! <br />
             We’d love to celebrate it with you
           </h2>
-          <DatePicker value={dob} onChange={setDob} className="date-picker" />
+          <DatePicker
+            defaultDate={dob}
+            value={dob}
+            onChange={setDob}
+            maxDate={new Date()}
+            className="date-picker"
+          />
           {/* <DatePicker
             selected={dob}
             onChange={(date) => setDob(date)}
@@ -218,6 +243,7 @@ export default function WelcomeStepper({
                       objectFit: "cover",
                       borderRadius: "50%",
                     }}
+                    referrerPolicy="no-referrer"
                   />
                 </div>
               }

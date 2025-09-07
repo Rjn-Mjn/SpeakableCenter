@@ -3,6 +3,7 @@ const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
 const cors = require("cors");
+const { log } = require("console");
 
 const app = express();
 const PORT = 5001;
@@ -10,9 +11,10 @@ const PORT = 5001;
 // CORS: chỉ cho phép server chính gọi
 app.use(
   cors({
-    origin: ["*"],
+    origin: ["https://audiox.space"],
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
+    credentials: true,
     // origin: ["https://audiox.space", "http://192.168.1.26:5173/dashboard/"],
   })
 );
@@ -26,7 +28,13 @@ if (!fs.existsSync(uploadFolder))
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, uploadFolder),
   filename: (req, file, cb) => {
+    console.log(req.body);
+
+    const AccountID = req.body.AccountID;
+    console.log(AccountID);
+
     const ext = path.extname(file.originalname); // lấy đuôi file
+
     const uniqueName = Date.now() + "-" + req.body.AccountID + ext; // tên file duy nhất
     cb(null, uniqueName);
   },
@@ -45,7 +53,14 @@ app.post("/api/upload-avatar", upload.single("avatar"), (req, res) => {
 });
 
 // Public folder để client có thể xem ảnh
-app.use("/avatars", express.static(uploadFolder));
+app.use(
+  "/avatars",
+  (req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "https://audiox.space");
+    next();
+  },
+  express.static(uploadFolder)
+);
 
 app.listen(PORT, () => {
   console.log(`Avatar server running on http://localhost:${PORT}`);

@@ -64,14 +64,149 @@ export async function getUserByID(accountId) {
   return result.recordset[0];
 }
 
+export async function getTargetRole(id) {
+  const pool = await getPool();
+  const result = await pool
+    .request()
+    .input("AccountID", sql.Int, id)
+    .query(
+      "SELECT RoleName FROM Accounts A JOIN Roles R ON A.RoleID = R.RoleID WHERE A.AccountID = @AccountID"
+    );
+  return result.recordset[0];
+}
+
 export async function getUserByID_session(accountId) {
   const pool = await getPool();
   const result = await pool.request().input("id", sql.Int, accountId).query(
-    "SELECT AccountID, Fullname, Email, GoogleID, PhoneNumber, R.RoleName, [Status], AvatarLink, DOC, DateOfBirth, Gender, Address \
+    "SELECT AccountID, Fullname, Email, PhoneNumber, R.RoleName, [Status], AvatarLink, DOC, DateOfBirth, Gender, Address \
       from Accounts AC JOIN Roles R ON AC.RoleID = R.RoleID \
       WHERE AccountID = @id"
   );
   return result.recordset[0];
+}
+
+// nếu chưa có ở đầu file:
+// import sql from "mssql";
+
+export async function getAccounts(
+  page = 1,
+  limit = 10,
+  status = null,
+  role = null
+) {
+  const pool = await getPool();
+
+  // normalize + bounds
+  page = Math.max(1, parseInt(page, 10) || 1);
+  limit = Math.min(200, Math.max(1, parseInt(limit, 10) || 10)); // cap max=200
+  const offset = (page - 1) * limit;
+
+  // build WHERE clause an toàn với parameterized inputs
+  const whereClauses = [];
+  const req = pool.request();
+
+  // always parametrize paging
+  req.input("offset", sql.Int, offset);
+  req.input("limit", sql.Int, limit);
+
+  if (status) {
+    // expects status = 'active' | 'pending' | 'blocked'
+    whereClauses.push("AC.[Status] = @status");
+    req.input("status", sql.VarChar(50), status);
+  }
+
+  if (role) {
+    // compare case-insensitive
+    whereClauses.push("LOWER(R.RoleName) = LOWER(@role)");
+    req.input("role", sql.VarChar(100), role);
+  }
+
+  const whereSql = whereClauses.length
+    ? `WHERE ${whereClauses.join(" AND ")}`
+    : "";
+
+  const query = `
+    SELECT
+      AC.AccountID,
+      AC.Fullname,
+      AC.Email,
+      AC.PhoneNumber,
+      R.RoleName,
+      AC.[Status],
+      AC.AvatarLink,
+      AC.DOC,
+      CONVERT(varchar(10), AC.DateOfBirth, 120) AS DateOfBirth,
+      AC.Gender,
+      AC.Address,
+      COUNT(1) OVER() AS TotalCount
+    FROM Accounts AC
+    LEFT JOIN Roles R ON AC.RoleID = R.RoleID
+    ${whereSql}
+    ORDER BY AC.AccountID
+    OFFSET @offset ROWS
+    FETCH NEXT @limit ROWS ONLY;
+  `;
+
+  const result = await req.query(query);
+  const rows = result.recordset || [];
+
+  const total = rows.length ? rows[0].TotalCount : 0;
+  // remove TotalCount from each item (optional)
+  const data = rows.map(({ TotalCount, ...rest }) => rest);
+
+  return {
+    data,
+    total,
+    page,
+    limit,
+  };
+}
+
+export async function toggleStatus(AccountID, Status, RoleName) {
+  const request = pool
+    .request()
+    .input("status", sql.VarChar, Status)
+    .input("AccountID", sql.Int, AccountID);
+
+  console.log("query role: ", RoleName);
+  console.log("query status: ", Status);
+
+  if (Status !== "pending") {
+    if (RoleName === "Guest") {
+      const result = await request.query(
+        "UPDATE Accounts SET Status = @status,  RoleID = (SELECT RoleID FROM Roles WHERE RoleName = 'Students')  WHERE AccountID = @AccountID"
+      );
+    } else {
+      const result = await request.query(
+        "UPDATE Accounts SET Status = @status WHERE AccountID = @AccountID"
+      );
+    }
+  } else {
+    const result = await request.query(
+      "UPDATE Accounts SET Status = @status WHERE AccountID = @AccountID"
+    );
+  }
+}
+
+export async function toggleRole(AccountID, RoleName) {
+  const request = pool
+    .request()
+    .input("role", sql.NVarChar, RoleName)
+    .input("AccountID", sql.Int, AccountID);
+
+  if (RoleName === "Guest") {
+    const result = await request.query(
+      "UPDATE Accounts SET Status = 'pending',  RoleID = (SELECT RoleID FROM Roles WHERE RoleName = @role)  WHERE AccountID = @AccountID"
+    );
+  } else if (RoleName === "Students") {
+    const result = await request.query(
+      "UPDATE Accounts SET Status = 'active',  RoleID = (SELECT RoleID FROM Roles WHERE RoleName = @role)  WHERE AccountID = @AccountID"
+    );
+  } else {
+    const result = await request.query(
+      "UPDATE Accounts SET RoleID = (SELECT RoleID FROM Roles WHERE RoleName = @role) WHERE AccountID = @AccountID"
+    );
+  }
 }
 
 export async function addUser(user) {
@@ -141,5 +276,71 @@ export async function createSessionTable() {
   }
 }
 
+export async function saveAvatar(info) {
+  console.log(info.AvatarLink);
+
+  const pool = await getPool();
+  await pool
+    .request()
+    .input("AccountID", sql.Int, info.AccountID)
+    .input("AvatarLink", sql.NVarChar, info.AvatarLink).query(`
+      UPDATE Accounts 
+      SET AvatarLink = @AvatarLink 
+      WHERE AccountID = @AccountID
+    `);
+}
+
+export async function setGender(info) {
+  console.log(info.Gender);
+
+  const pool = await getPool();
+  await pool
+    .request()
+    .input("AccountID", sql.Int, info.AccountID)
+    .input("Gender", sql.Bit, info.Gender).query(`
+      UPDATE Accounts 
+      SET Gender = @Gender 
+      WHERE AccountID = @AccountID
+    `);
+}
+export async function setPhone(info) {
+  console.log(info.PhoneNumber);
+
+  const pool = await getPool();
+  await pool
+    .request()
+    .input("AccountID", sql.Int, info.AccountID)
+    .input("PhoneNumber", sql.NVarChar, info.PhoneNumber).query(`
+      UPDATE Accounts 
+      SET PhoneNumber = @PhoneNumber 
+      WHERE AccountID = @AccountID
+    `);
+}
+export async function setDOB(info) {
+  console.log(info.DateOfBirth);
+
+  const pool = await getPool();
+  await pool
+    .request()
+    .input("AccountID", sql.Int, info.AccountID)
+    .input("DateOfBirth", sql.Date, info.DateOfBirth).query(`
+      UPDATE Accounts 
+      SET DateOfBirth = @DateOfBirth 
+      WHERE AccountID = @AccountID
+    `);
+}
+export async function setAddress(info) {
+  console.log(info.Address);
+
+  const pool = await getPool();
+  await pool
+    .request()
+    .input("AccountID", sql.Int, info.AccountID)
+    .input("Address", sql.NVarChar, info.Address).query(`
+      UPDATE Accounts 
+      SET Address = @Address 
+      WHERE AccountID = @AccountID
+    `);
+}
 // Export the config for session store to use
 export const getDbConfig = () => config;

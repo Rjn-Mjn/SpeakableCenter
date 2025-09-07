@@ -129,7 +129,7 @@ passport.deserializeUser(async (id, done) => {
       // console.log("user from passport: ", user);
 
       user = await getUserByID_session(accountId);
-      console.log("user deserialized db: ", user);
+      // console.log("user deserialized db: ", user);
 
       if (!user) {
         console.error("User not found for AccountID:", accountId);
