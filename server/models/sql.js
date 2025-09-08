@@ -149,7 +149,7 @@ export async function getAccounts(
   `;
 
   const result = await req.query(query);
-  const rows = result.recordset || [];
+  const rows = result?.recordset ?? []; // <-- thêm fallback an toàn
 
   const total = rows.length ? rows[0].TotalCount : 0;
   // remove TotalCount from each item (optional)
@@ -164,6 +164,7 @@ export async function getAccounts(
 }
 
 export async function toggleStatus(AccountID, Status, RoleName) {
+  const pool = await getPool();
   const request = pool
     .request()
     .input("status", sql.VarChar, Status)
@@ -190,6 +191,7 @@ export async function toggleStatus(AccountID, Status, RoleName) {
 }
 
 export async function toggleRole(AccountID, RoleName) {
+  const pool = await getPool();
   const request = pool
     .request()
     .input("role", sql.NVarChar, RoleName)
@@ -212,6 +214,7 @@ export async function toggleRole(AccountID, RoleName) {
 
 export async function deleteAccount(AccountID) {
   try {
+    const pool = await getPool();
     const request = pool.request().input("AccountID", sql.Int, AccountID);
 
     const result = await request.query(
