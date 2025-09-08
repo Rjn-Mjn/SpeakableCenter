@@ -215,7 +215,9 @@ export async function deleteAccount(AccountID) {
     const request = pool.request().input("AccountID", sql.Int, AccountID);
 
     const result = await request.query(
-      "UPDATE Accounts SET isDelete = 1 WHERE AccountID = @AccountID"
+      "UPDATE Accounts \
+        SET isDelete = 1, Status = 'blocked' \
+        WHERE AccountID = @AccountID"
     );
 
     return result.rowsAffected[0]; // trả về số row bị update
