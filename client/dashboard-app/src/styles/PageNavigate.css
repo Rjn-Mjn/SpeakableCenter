@@ -1,0 +1,58 @@
+.page-navigate {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  border-radius: 2rem;
+  padding: 0.5rem 0.5rem;
+  background-color: #f8f8f8;
+}
+
+.prev-btn,
+.next-btn {
+  padding: 0.2rem 0.8rem;
+  border-radius: 0.8rem;
+  background-color: transparent;
+  color: #434343;
+  transition: all 0.3s ease;
+}
+.prev-btn:hover:not(:disabled),
+.next-btn:hover:not(:disabled) {
+  background-color: #eeeeee;
+}
+.next-btn:disabled,
+.prev-btn:disabled {
+  color: #d1d1d1;
+  cursor: not-allowed;
+}
+
+.page-indicators {
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+}
+
+.page-button {
+  margin: 0 2px;
+  border: none;
+  height: 2rem;
+  width: 2rem;
+  border-radius: 0.5rem;
+  padding: 0rem 0rem;
+  cursor: pointer;
+  background: #eeeeee;
+  color: #434343;
+  transition: all 0.3s ease;
+}
+.page-button:hover {
+  background-color: #d9d9d9;
+  transform: scalex(1.1);
+}
+
+.page-button.active {
+  background: #69ddc8;
+  color: white;
+}
+.page-button.active:hover {
+  background: #5dc8b5;
+  color: white;
+}
