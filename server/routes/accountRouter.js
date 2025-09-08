@@ -176,7 +176,7 @@ router.put("/:id/role", async (req, res) => {
 });
 
 // Soft delete account (isDelete = 1)
-router.delete("/:id", async (req, res) => {
+router.delete("/:id/delete", async (req, res) => {
   try {
     const { id } = req.params;
     const currentUser = req.user;
