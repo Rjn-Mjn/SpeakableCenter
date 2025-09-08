@@ -102,7 +102,7 @@ export async function getAccounts(
   const offset = (page - 1) * limit;
 
   // build WHERE clause an toàn với parameterized inputs
-  const whereClauses = [];
+  const whereClauses = ["AC.isDelete = 0"];
   const req = pool.request();
 
   // always parametrize paging
@@ -145,6 +145,7 @@ export async function getAccounts(
     ORDER BY AC.AccountID
     OFFSET @offset ROWS
     FETCH NEXT @limit ROWS ONLY;
+    
   `;
 
   const result = await req.query(query);
@@ -210,11 +211,17 @@ export async function toggleRole(AccountID, RoleName) {
 }
 
 export async function deleteAccount(AccountID) {
-  const request = pool.request().input("AccountID", sql.Int, AccountID);
+  try {
+    const request = pool.request().input("AccountID", sql.Int, AccountID);
 
-  const result = await request.query(
-    "DELETE FROM Accounts WHERE AccountID = @AccountID"
-  );
+    const result = await request.query(
+      "UPDATE Accounts SET isDelete = 1 WHERE AccountID = @AccountID"
+    );
+
+    return result.rowsAffected[0]; // trả về số row bị update
+  } catch (err) {
+    throw new Error("Failed to soft delete account: " + err.message);
+  }
 }
 
 export async function addUser(user) {

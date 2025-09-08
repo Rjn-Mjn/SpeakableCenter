@@ -4,6 +4,7 @@ import {
   updateAccountRole,
   updateAccountStatus,
   getAllAccounts,
+  accountDelete,
 } from "../services/accountService.js";
 
 const router = express.Router();
@@ -174,36 +175,47 @@ router.put("/:id/role", async (req, res) => {
   }
 });
 
-router.put("/:id/delete", async (req, res) => {
+// Soft delete account (isDelete = 1)
+router.delete("/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, RoleName } = req.body;
-    console.log("status: ", status);
-    console.log("role: ", RoleName);
-
     const currentUser = req.user;
+
+    // Check quyền
     if (!["Admin", "Moderator"].includes(currentUser.RoleName)) {
       return res.status(403).json({ error: "Permission denied." });
     }
 
+    // Không cho tự xóa chính mình
     if (currentUser.AccountID == id) {
       return res.status(403).json({ error: "You cannot delete yourself." });
     }
 
-    // cần query DB để lấy role hiện tại của target user
+    // Lấy role hiện tại của target user
     const target = await examineTargetRole(id);
-    console.log("object role: ", target.role.RoleName);
-    console.log("request role: ", currentUser.RoleName);
 
-    if (target.role.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
+    if (!target) {
+      return res.status(404).json({ error: "User not found." });
+    }
+
+    // Moderator không được xóa Admin
+    if (target.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
       return res.status(403).json({ error: "You cannot remove an admin." });
     }
 
+    // Soft delete
     await accountDelete(id);
+
+    if (rows === 0) {
+      return res
+        .status(404)
+        .json({ error: "Account not found or already deleted." });
+    }
 
     res.json({ success: true });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error("Delete error: ", err);
+    res.status(500).json({ error: "Server error." });
   }
 });
 

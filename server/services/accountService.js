@@ -1,4 +1,5 @@
 import {
+  deleteAccount,
   getAccounts,
   getTargetRole,
   toggleRole,
