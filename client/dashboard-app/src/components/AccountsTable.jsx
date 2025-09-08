@@ -155,6 +155,41 @@ export default function AccountsTable({
     }
   };
 
+  const deleteAccount = async (account) => {
+    setStudents((prev) => {
+      // backup state hiện tại
+      const backup = [...prev];
+      // gắn backup vào account để có thể rollback
+      account._backup = backup;
+      return prev;
+    });
+
+    try {
+      const res = await fetch(`/api/accounts/${account.AccountID}/delete`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      if (!res.ok) {
+        const errData = await res.json();
+        alert(`Warning: ${errData.error}`);
+        // rollback
+        setStudents(account._backup);
+        return;
+      }
+
+      // API thành công → remove account khỏi state
+      setStudents((prev) =>
+        prev.filter((s) => s.AccountID !== account.AccountID)
+      );
+    } catch (err) {
+      console.error("Error deleting account", err);
+      alert("Có lỗi khi xóa account. Vui lòng thử lại.");
+      // rollback
+      setStudents(account._backup);
+    }
+  };
+
   return (
     <table
       className="accounts-table"
@@ -275,7 +310,7 @@ export default function AccountsTable({
                 <button className="action-btn">
                   <Cog />
                 </button>
-                <button className="action-btn">
+                <button className="action-btn" onClick={() => deleteAccount(s)}>
                   <Trash2 />
                 </button>
               </div>

@@ -209,6 +209,14 @@ export async function toggleRole(AccountID, RoleName) {
   }
 }
 
+export async function deleteAccount(AccountID) {
+  const request = pool.request().input("AccountID", sql.Int, AccountID);
+
+  const result = await request.query(
+    "DELETE FROM Accounts WHERE AccountID = @AccountID"
+  );
+}
+
 export async function addUser(user) {
   const pool = await getPool();
   const now = new Date();

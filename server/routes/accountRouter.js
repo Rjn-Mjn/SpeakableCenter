@@ -88,9 +88,9 @@ router.put("/:id/status", async (req, res) => {
     console.log("role: ", RoleName);
 
     const currentUser = req.user;
-    // if (!["Admin", "SuperAdmin"].includes(currentUser.RoleName)) {
-    //   return res.status(403).json({ error: "Permission denied." });
-    // }
+    if (!["Admin", "Moderator"].includes(currentUser.RoleName)) {
+      return res.status(403).json({ error: "Permission denied." });
+    }
 
     if (currentUser.AccountID == id) {
       // Nếu muốn đổi role của chính mình sang khác admin => chặn
@@ -110,6 +110,14 @@ router.put("/:id/status", async (req, res) => {
           .status(403)
           .json({ error: "You cannot disable your own account." });
       }
+    }
+
+    const target = await examineTargetRole(id);
+    console.log("object role: ", target.role.RoleName);
+    console.log("request role: ", currentUser.RoleName);
+
+    if (target.role.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
+      return res.status(403).json({ error: "Cant modify Admin." });
     }
 
     await updateAccountStatus(id, status, RoleName);
@@ -150,21 +158,48 @@ router.put("/:id/role", async (req, res) => {
       }
     }
 
-    if (RoleName === "Admin" || status === "active") {
-      // cần query DB để lấy role hiện tại của target user
-      const target = await examineTargetRole(id);
-      console.log("object role: ", target.role.RoleName);
-      console.log("request role: ", currentUser.RoleName);
+    const target = await examineTargetRole(id);
+    console.log("object role: ", target.role.RoleName);
+    console.log("request role: ", currentUser.RoleName);
 
-      if (
-        target.role.RoleName === "Admin" &&
-        currentUser.RoleName !== "Admin"
-      ) {
-        return res.status(403).json({ error: "Cant modify Admin." });
-      }
+    if (target.role.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
+      return res.status(403).json({ error: "Cant modify Admin." });
     }
 
     await updateAccountRole(id, RoleName);
+
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+router.put("/:id/delete", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status, RoleName } = req.body;
+    console.log("status: ", status);
+    console.log("role: ", RoleName);
+
+    const currentUser = req.user;
+    if (!["Admin", "Moderator"].includes(currentUser.RoleName)) {
+      return res.status(403).json({ error: "Permission denied." });
+    }
+
+    if (currentUser.AccountID == id) {
+      return res.status(403).json({ error: "You cannot delete yourself." });
+    }
+
+    // cần query DB để lấy role hiện tại của target user
+    const target = await examineTargetRole(id);
+    console.log("object role: ", target.role.RoleName);
+    console.log("request role: ", currentUser.RoleName);
+
+    if (target.role.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
+      return res.status(403).json({ error: "You cannot remove an admin." });
+    }
+
+    await accountDelete(id);
 
     res.json({ success: true });
   } catch (err) {

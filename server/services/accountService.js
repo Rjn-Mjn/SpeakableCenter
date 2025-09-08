@@ -114,6 +114,11 @@ export async function updateAccountRole(accountId, RoleName) {
   // console.log(result);
 }
 
+export async function accountDelete(accountId) {
+  const result = await deleteAccount(accountId);
+  // console.log(result);
+}
+
 export async function examineTargetRole(id) {
   const result = await getTargetRole(id);
   // console.log(result);
