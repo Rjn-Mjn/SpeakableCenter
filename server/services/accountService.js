@@ -116,7 +116,7 @@ export async function updateAccountRole(accountId, RoleName) {
 }
 
 export async function accountDelete(accountId) {
-  const result = await deleteAccount(accountId);
+  return await deleteAccount(accountId);
   // console.log(result);
 }
 

@@ -204,15 +204,15 @@ router.delete("/:id/delete", async (req, res) => {
     }
 
     // Soft delete
-    await accountDelete(id);
+    const rowsAffected = await accountDelete(id);
 
-    if (rows === 0) {
+    if (rowsAffected === 0) {
       return res
         .status(404)
         .json({ error: "Account not found or already deleted." });
     }
 
-    res.json({ success: true });
+    res.json({ ok: true });
   } catch (err) {
     console.error("Delete error: ", err);
     res.status(500).json({ error: "Server error." });
