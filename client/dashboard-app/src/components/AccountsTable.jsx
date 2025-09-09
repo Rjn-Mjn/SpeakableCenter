@@ -47,8 +47,8 @@ export default function AccountsTable({
   const toggleStatus = async (account) => {
     // logic chuyển status
     let newStatus;
-    if (account.Status === "active") newStatus = "pending";
-    else if (account.Status === "pending") newStatus = "blocked";
+    if (account.Status === "active") newStatus = "blocked";
+    else if (account.Status === "blocked") newStatus = "pending";
     else newStatus = "active";
 
     let newRoleName;
