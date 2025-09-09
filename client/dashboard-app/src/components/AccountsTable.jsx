@@ -28,7 +28,7 @@ export default function AccountsTable({
       }
     }
     fetchData();
-  }, [fallbackAccounts, page, pageSize, setStudents, setTotal]);
+  }, [page]);
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
