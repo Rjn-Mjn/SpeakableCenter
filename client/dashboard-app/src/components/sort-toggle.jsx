@@ -116,7 +116,6 @@ export default function SortToggle({
 
       {/* STATUS */}
       <div className="sort-bar status">
-        <div className={`highlight  ${status.toLowerCase()}`}></div>
         {["Working", "Pending", "Blocked"].map((s) => (
           <div
             key={s}

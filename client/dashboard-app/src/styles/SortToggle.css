@@ -9,10 +9,11 @@
   border-radius: 1.5rem;
   padding: 0.5rem;
   gap: 0.5rem;
-  height: 100%;
 }
 
 .sort-object {
+  position: relative;
+  z-index: 1;
   background-color: #eee;
   color: #686868;
   padding: 0.8rem 1.2rem 0.6rem 1.2rem;
@@ -63,53 +64,4 @@
 .admin.active {
   background-color: #ff3737;
   color: #f8f8f8;
-}
-.sort-bar .highlight {
-  position: absolute;
-  top: 0.3rem;
-  bottom: 0.3rem;
-  width: calc(33.3% - 0.5rem);
-  /* width: 100%; */
-  border-radius: 8px;
-  background: #5ecbb7;
-  transition: transform 0.3s ease;
-  font-size: 3rem;
-}
-.sort-bar .highlight.working {
-  animation: slideWorking 0.4s forwards;
-}
-.sort-bar .highlight.pending {
-  animation: slidePending 0.4s forwards;
-}
-.sort-bar .highlight.blocked {
-  animation: slideFemale 0.4s forwards;
-}
-
-@keyframes slideWorking {
-  0% {
-    transform: translateX(100%) scale(1);
-  }
-  60% {
-    transform: translateX(-10%) scale(0.95); /* overshoot qua trái */
-  }
-  80% {
-    transform: translateX(5%) scale(1.05); /* bật lại */
-  }
-  100% {
-    transform: translateX(0%) scale(1); /* settle tại male */
-  }
-}
-@keyframes slidePending {
-  0% {
-    transform: translateX(0%) scale(1);
-  }
-  60% {
-    transform: translateX(110%) scale(0.95); /* overshoot + co nhẹ */
-  }
-  80% {
-    transform: translateX(95%) scale(1.05); /* bật lại */
-  }
-  100% {
-    transform: translateX(105%) scale(1); /* settle */
-  }
 }
