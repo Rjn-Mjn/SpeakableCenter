@@ -4,7 +4,7 @@ import SortToggle from "../components/sort-toggle";
 import "../styles/accounts-manager.css";
 import AccountsTable from "../components/AccountsTable";
 import { DashboardContext } from "../components/DashboardContext";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import AccountsPageNavigate from "../components/PageNavigate";
 // import { useEffect, useState } from "react";
 
@@ -218,6 +218,7 @@ export default function AccountsManager() {
   //     });
   // }, []);
 
+  const { currentUser } = useContext(DashboardContext);
   const contentRef = useRef(null);
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
@@ -256,6 +257,7 @@ export default function AccountsManager() {
           fallbackAccounts={fallbackAccounts}
           students={students}
           setStudents={setStudents}
+          currentUser={currentUser}
         />
       </div>
       <div className="accounts-bottom">

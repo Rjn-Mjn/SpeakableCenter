@@ -8,6 +8,8 @@ export default function SortToggle({
   setTotal,
   fallbackAccounts,
 }) {
+  const [status, setStatus] = useState("");
+
   const [active, setActive] = useState({
     all: true,
     status: null, // "Working" | "Pending" | "Blocked" (UI labels)
@@ -69,6 +71,9 @@ export default function SortToggle({
   };
 
   const handleGetByStatus = async (statusLabel) => {
+    console.log("state: ", status);
+    console.log("status label received: ", statusLabel);
+    setStatus(statusLabel);
     const next = { all: false, status: statusLabel, role: active.role ?? null };
     setActive(next);
     await fetchAccountsFromFilters(next);
@@ -111,6 +116,7 @@ export default function SortToggle({
 
       {/* STATUS */}
       <div className="sort-bar status">
+        <div className={`highlight  ${status.toLowerCase()}`}></div>
         {["Working", "Pending", "Blocked"].map((s) => (
           <div
             key={s}

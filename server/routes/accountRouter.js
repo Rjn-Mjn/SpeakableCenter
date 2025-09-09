@@ -132,15 +132,21 @@ router.put("/:id/status", async (req, res) => {
 router.put("/:id/role", async (req, res) => {
   try {
     const { id } = req.params;
-    const { status, RoleName } = req.body;
-
+    let { status, RoleName } = req.body; // let thay vì const
     const currentUser = req.user;
+
+    // Chỉ Admin/Moderator mới có quyền
     if (!["Admin", "Moderator"].includes(currentUser.RoleName)) {
       return res.status(403).json({ error: "Permission denied." });
     }
 
+    // Moderator không được set role thành Admin
+    if (currentUser.RoleName === "Moderator" && RoleName === "Admin") {
+      RoleName = "Guest";
+    }
+
+    // Không được tự hạ cấp/chặn chính mình
     if (currentUser.AccountID == id) {
-      // Nếu muốn đổi role của chính mình sang khác admin => chặn
       if (
         RoleName &&
         RoleName !== "Admin" &&
@@ -150,8 +156,6 @@ router.put("/:id/role", async (req, res) => {
           .status(403)
           .json({ error: "You cannot remove your own admin rights." });
       }
-
-      // Nếu muốn đổi status sang blocked/pending => chặn
       if (["blocked", "pending"].includes(status)) {
         return res
           .status(403)
@@ -159,16 +163,13 @@ router.put("/:id/role", async (req, res) => {
       }
     }
 
+    // Không phải Admin thì không được chỉnh Admin khác
     const target = await examineTargetRole(id);
-    console.log("object role: ", target.role.RoleName);
-    console.log("request role: ", currentUser.RoleName);
-
     if (target.role.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
-      return res.status(403).json({ error: "Cant modify Admin." });
+      return res.status(403).json({ error: "Cannot modify Admin." });
     }
 
     await updateAccountRole(id, RoleName);
-
     res.json({ success: true });
   } catch (err) {
     res.status(500).json({ error: err.message });

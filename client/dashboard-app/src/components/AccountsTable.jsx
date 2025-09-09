@@ -10,6 +10,7 @@ export default function AccountsTable({
   fallbackAccounts,
   students,
   setStudents,
+  currentUser,
 }) {
   const [selected, setSelected] = useState([]);
 
@@ -103,10 +104,15 @@ export default function AccountsTable({
   const toggleRole = async (account) => {
     // logic chuyển status
     let newRoleName;
-    if (account.RoleName === "Admin") newRoleName = "Moderator";
-    else if (account.RoleName === "Moderator") newRoleName = "Students";
-    else if (account.RoleName === "Students") newRoleName = "Guest";
-    else newRoleName = "Admin";
+    if (account.RoleName === "Guest") newRoleName = "Students";
+    else if (account.RoleName === "Students") newRoleName = "Moderator";
+    else if (account.RoleName === "Moderator") {
+      if (currentUser.RoleName === "Moderator") {
+        newRoleName = "Students";
+      } else {
+        newRoleName = "Admin";
+      }
+    } else newRoleName = "Students";
     console.log("new role: ", newRoleName);
 
     let newStatus;
