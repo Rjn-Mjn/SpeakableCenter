@@ -132,17 +132,12 @@ router.put("/:id/status", async (req, res) => {
 router.put("/:id/role", async (req, res) => {
   try {
     const { id } = req.params;
-    let { status, RoleName } = req.body; // let thay vì const
+    let { RoleName } = req.body; // let thay vì const
     const currentUser = req.user;
 
     // Chỉ Admin/Moderator mới có quyền
     if (!["Admin", "Moderator"].includes(currentUser.RoleName)) {
       return res.status(403).json({ error: "Permission denied." });
-    }
-
-    // Moderator không được set role thành Admin
-    if (currentUser.RoleName === "Moderator" && RoleName === "Admin") {
-      RoleName = "Guest";
     }
 
     // Không được tự hạ cấp/chặn chính mình
@@ -165,8 +160,19 @@ router.put("/:id/role", async (req, res) => {
 
     // Không phải Admin thì không được chỉnh Admin khác
     const target = await examineTargetRole(id);
-    if (target.role.RoleName === "Admin" && currentUser.RoleName !== "Admin") {
+    const targetRole = target.role.RoleName;
+
+    if (targetRole === "Admin" && currentUser.RoleName !== "Admin") {
       return res.status(403).json({ error: "Cannot modify Admin." });
+    }
+
+    if (currentUser.RoleName === "Moderator") {
+      const allowedRoles = ["Guest", "Students"];
+      if (!allowedRoles.includes(RoleName)) {
+        return res
+          .status(403)
+          .json({ error: "Moderators can only assign Guest or Students." });
+      }
     }
 
     await updateAccountRole(id, RoleName);

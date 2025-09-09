@@ -28,7 +28,7 @@ export default function AccountsTable({
       }
     }
     fetchData();
-  }, [page]);
+  }, [fallbackAccounts, page, pageSize, setStudents, setTotal]);
 
   const toggleSelect = (id) => {
     setSelected((prev) =>
@@ -72,7 +72,7 @@ export default function AccountsTable({
       const res = await fetch(`/api/accounts/${account.AccountID}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus, RoleName: newRoleName }),
+        body: JSON.stringify({ RoleName: newRoleName }),
       });
 
       if (!res.ok) {
@@ -103,17 +103,26 @@ export default function AccountsTable({
 
   const toggleRole = async (account) => {
     // logic chuyển status
+    const currentRole = account.RoleName;
     let newRoleName;
-    if (account.RoleName === "Guest") newRoleName = "Students";
-    else if (account.RoleName === "Students") newRoleName = "Moderator";
-    else if (account.RoleName === "Moderator") {
-      if (currentUser.RoleName === "Moderator") {
-        newRoleName = "Students";
-      } else {
-        newRoleName = "Admin";
+
+    if (currentUser.RoleName === "Moderator") {
+      // Moderator chỉ được Guest <-> Students
+      if (currentRole === "Guest") newRoleName = "Students";
+      else if (currentRole === "Students") newRoleName = "Guest";
+      else {
+        alert("Moderator chỉ đổi được giữa Guest và Students.");
+        return;
       }
-    } else newRoleName = "Students";
-    console.log("new role: ", newRoleName);
+    } else if (currentUser.RoleName === "Admin") {
+      // Admin cycle 4 role
+      const cycle = ["Guest", "Students", "Moderator", "Admin"];
+      const idx = cycle.indexOf(currentRole);
+      newRoleName = cycle[(idx + 1) % cycle.length];
+    } else {
+      alert("Bạn không có quyền đổi role.");
+      return;
+    }
 
     let newStatus;
     if (newRoleName === "Guest") {
