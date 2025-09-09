@@ -72,7 +72,7 @@ export default function AccountsTable({
       const res = await fetch(`/api/accounts/${account.AccountID}/status`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ RoleName: newRoleName }),
+        body: JSON.stringify({ status: newStatus, RoleName: newRoleName }),
       });
 
       if (!res.ok) {
@@ -141,7 +141,7 @@ export default function AccountsTable({
       const res = await fetch(`/api/accounts/${account.AccountID}/role`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ status: newStatus, RoleName: newRoleName }),
+        body: JSON.stringify({ RoleName: newRoleName }),
       });
 
       if (!res.ok) {
