@@ -202,7 +202,9 @@ td:has(.account-cell.address) {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  transition: all 0.3s ease;
 }
+
 .status-btn.active {
   background: #88e97b;
   color: #f8f8f8;

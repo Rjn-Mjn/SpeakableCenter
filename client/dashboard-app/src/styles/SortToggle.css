@@ -29,6 +29,10 @@
 .sort-object:hover {
   transform: scale(1.1);
 }
+
+.sort-object.active {
+  transform: scale(1);
+}
 .sort-object h2 {
   transform: scale(1.1);
 }
