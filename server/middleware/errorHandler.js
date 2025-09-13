@@ -48,6 +48,8 @@ export const notFound = (req, res, next) => {
   }
 
   // Còn nếu là route của React -> trả về index.html
+  console.log(__dirname);
+
   res.sendFile(
     path.join(__dirname, "../client/public/dashboard/index.html"),
     (err) => {
