@@ -51,7 +51,7 @@ export const notFound = (req, res, next) => {
   console.log(__dirname);
 
   res.sendFile(
-    path.join(__dirname, "../client/public/dashboard/index.html"),
+    path.join(__dirname, "../../client/public/dashboard/index.html"),
     (err) => {
       if (err) {
         next(err);
