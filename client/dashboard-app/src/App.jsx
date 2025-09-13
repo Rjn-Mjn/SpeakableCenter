@@ -3,7 +3,13 @@
 // import viteLogo from "/vite.svg";
 
 import React, { useEffect } from "react";
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  useLocation,
+} from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import History from "./pages/History";
@@ -20,11 +26,12 @@ import avatar from "../../public/preview/avatar.png";
 import "./App.css";
 import AccountsManager from "./pages/Accounts-managers";
 import Home from "./pages/Home";
+import ErrorPage from "./pages/errorPage";
 
 function App() {
   const [showWelcome, setShowWelcome] = useState(true);
-  const [showMain, setShowMain] = useState(false);
   const [user, setUser] = useState(null);
+  const location = useLocation();
   const letters = "Welcome to Speakable Center!";
 
   useEffect(() => {
@@ -63,7 +70,6 @@ function App() {
   function handleAnimationComplete() {
     setTimeout(() => {
       setShowWelcome(false);
-      setShowMain(true);
     }, 1000);
   }
 
@@ -71,7 +77,9 @@ function App() {
     console.log("Can not get user");
   }
 
-  if (showWelcome) {
+  const isDahboardHome = location.pathname === "/";
+
+  if (isDahboardHome && showWelcome) {
     return (
       <div
         style={{
@@ -99,38 +107,36 @@ function App() {
     );
   }
 
-  if (showMain) {
-    // return <Dashboard />;
-    // return Dashboard();
-    return (
-      <AnimatedContent
-        className="main"
-        distance={160}
-        direction="vertical"
-        reverse={false}
-        duration={0.7}
-        ease="power3.out"
-        initialOpacity={0}
-        animateOpacity
-        initialScale={0.1}
-        scale={0.1}
-        threshold={0.2}
-        delay={0}
-      >
-        <Routes>
-          <Route path="/" element={<DashboardLayout currentUser={user} />}>
-            <Route index element={<Home currentUser={user} />} />
-            <Route path="task" element={<Task />} />
-            <Route path="accounts-management" element={<AccountsManager />} />
-            <Route path="ai-feedback" element={<History />} />
-            <Route path="materials" element={<Schedule />} />
-            <Route path="schedules" element={<Schedule />} />
-            <Route path="history" element={<Schedule />} />
-          </Route>
-        </Routes>
-      </AnimatedContent>
-    );
-  }
+  return (
+    <AnimatedContent
+      className="main"
+      distance={160}
+      direction="vertical"
+      reverse={false}
+      duration={0.7}
+      ease="power3.out"
+      initialOpacity={0}
+      animateOpacity
+      initialScale={0.1}
+      scale={0.1}
+      threshold={0.2}
+      delay={0}
+    >
+      <Routes>
+        <Route path="/" element={<DashboardLayout currentUser={user} />}>
+          <Route index element={<Home currentUser={user} />} />
+          <Route path="task" element={<Task />} />
+          <Route path="accounts-management" element={<AccountsManager />} />
+          <Route path="ai-feedback" element={<History />} />
+          <Route path="materials" element={<Schedule />} />
+          <Route path="schedules" element={<Schedule />} />
+          <Route path="history" element={<Schedule />} />
+        </Route>
+
+        <Route path="/*" element={<ErrorPage />} />
+      </Routes>
+    </AnimatedContent>
+  );
 }
 
 export default App;

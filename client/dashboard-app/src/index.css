@@ -173,3 +173,9 @@ button:focus-visible {
 .loading-text {
   margin-top: 1rem;
 }
+
+.account-trigger {
+  background-color: rgba(0, 0, 0, 0.979);
+  z-index: 20000;
+  visibility: visible;
+}

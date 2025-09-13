@@ -45,3 +45,6 @@
 .search-input:focus {
   border: 1px solid rgb(102, 102, 102);
 }
+
+@media (max-width: 800px) {
+}

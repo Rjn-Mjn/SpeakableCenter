@@ -8,6 +8,7 @@ import ClickSpark from "../components/ClickSpark";
 import RandomStepSpinner from "../components/RandomStepSpinner";
 // import Stepper, { Step } from "../components/Stepper";
 import { DashboardContext } from "../components/DashboardContext";
+import useMediaQuery from "../utils/useMediaQuery";
 
 export default function DashboardLayout({ currentUser }) {
   const [isSidebarActive, setIsSidebarActive] = useState(false);
@@ -15,6 +16,9 @@ export default function DashboardLayout({ currentUser }) {
   const [isBlank, setIsBlank] = useState(true);
   const [avatarUrl, setAvatarUrl] = useState(currentUser.AvatarLink);
   const [loading, setLoading] = useState(false);
+  const [isAccountWidthTriggered, setIsAccountWidthTriggered] = useState(false);
+  const isMobile = useMediaQuery(800); // (max-width:600px)
+  console.log("media query", isMobile);
 
   useEffect(() => {
     if (currentUser) {
@@ -38,6 +42,8 @@ export default function DashboardLayout({ currentUser }) {
         avatarUrl,
         setAvatarUrl,
         currentUser,
+        isAccountWidthTriggered,
+        setIsAccountWidthTriggered,
       }}
     >
       <div className="layout">
@@ -70,7 +76,7 @@ export default function DashboardLayout({ currentUser }) {
         <div
           className={`overlay ${isSidebarActive ? "active" : ""} ${
             isBlank ? "up" : ""
-          }`}
+          } ${isMobile ? "account-trigger" : ""}`}
           onClick={() => setIsSidebarActive(false)}
         ></div>
         <div className="main">
