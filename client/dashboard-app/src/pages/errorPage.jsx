@@ -4,6 +4,7 @@ import Dither from "../components/dither";
 import "../styles/errorPage.css";
 import TextPressure from "../components/TextPressure";
 import mouth from "../assets/mouth_Nero_AI_Image_Upscaler_Photo_Face-removebg-preview.png";
+import { useNavigate } from "react-router-dom";
 
 export default function ErrorPage() {
   const [isAnimation, setIsAnimation] = useState(false);
@@ -14,6 +15,11 @@ export default function ErrorPage() {
   };
   const toggleMouse = () => {
     setIsMouse((prev) => !prev);
+  };
+
+  const navigate = useNavigate();
+  const goToProfile = () => {
+    navigate("/"); // chuyển hướng tới /profile
   };
 
   return (
@@ -48,7 +54,7 @@ export default function ErrorPage() {
           </div>
           <div className="error-bottom">
             <p>May be waiting at our homepage until we find it. Thanks!</p>
-            <button>Back to Home</button>
+            <button onClick={goToProfile}>Back to Home</button>
           </div>
         </div>
 

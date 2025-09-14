@@ -122,7 +122,7 @@ export default function Sidebar({
             <p>Have a problem?</p>
             <p>How can we help you?</p>
           </div>
-          <button class="help-btn">Send message</button>
+          <button class="help-btn">Contact Us</button>
         </div>
         <div className="utils">
           <button

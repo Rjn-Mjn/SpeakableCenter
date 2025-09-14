@@ -76,7 +76,7 @@ export default function DashboardLayout({ currentUser }) {
         <div
           className={`overlay ${isSidebarActive ? "active" : ""} ${
             isBlank ? "up" : ""
-          } ${isMobile ? "account-trigger" : ""}`}
+          } `}
           onClick={() => setIsSidebarActive(false)}
         ></div>
         <div className="main">

@@ -108,34 +108,39 @@ function App() {
   }
 
   return (
-    <AnimatedContent
-      className="main"
-      distance={160}
-      direction="vertical"
-      reverse={false}
-      duration={0.7}
-      ease="power3.out"
-      initialOpacity={0}
-      animateOpacity
-      initialScale={0.1}
-      scale={0.1}
-      threshold={0.2}
-      delay={0}
-    >
-      <Routes>
-        <Route path="/" element={<DashboardLayout currentUser={user} />}>
-          <Route index element={<Home currentUser={user} />} />
-          <Route path="task" element={<Task />} />
-          <Route path="accounts-management" element={<AccountsManager />} />
-          <Route path="ai-feedback" element={<History />} />
-          <Route path="materials" element={<Schedule />} />
-          <Route path="schedules" element={<Schedule />} />
-          <Route path="history" element={<Schedule />} />
-        </Route>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <AnimatedContent
+            className="main"
+            distance={160}
+            direction="vertical"
+            reverse={false}
+            duration={0.7}
+            ease="power3.out"
+            initialOpacity={0}
+            animateOpacity
+            initialScale={0.1}
+            scale={0.1}
+            threshold={0.2}
+            delay={0}
+          >
+            <DashboardLayout currentUser={user} />{" "}
+          </AnimatedContent>
+        }
+      >
+        <Route index element={<Home currentUser={user} />} />
+        <Route path="task" element={<Task />} />
+        <Route path="accounts-management" element={<AccountsManager />} />
+        <Route path="ai-feedback" element={<History />} />
+        <Route path="materials" element={<Schedule />} />
+        <Route path="schedules" element={<Schedule />} />
+        <Route path="history" element={<Schedule />} />
+      </Route>
 
-        <Route path="/*" element={<ErrorPage />} />
-      </Routes>
-    </AnimatedContent>
+      <Route path="*" element={<ErrorPage />} />
+    </Routes>
   );
 }
 

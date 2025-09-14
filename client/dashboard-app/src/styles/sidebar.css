@@ -361,7 +361,7 @@
 @media (max-height: 780px) {
   .helper {
     /* visibility: hidden; */
-    display: none;
+    /* display: none; */
     height: auto;
   }
   .sidebar .top {
@@ -372,6 +372,20 @@
 @media (max-height: 580px) {
   .sidebar .top {
     max-height: 70vh;
+  }
+}
+
+@media (max-height: 650px) {
+  .helper .help-description {
+    /* visibility: hidden; */
+    display: none;
+    height: auto;
+  }
+  .helper .help-title {
+    display: none;
+  }
+  .help-btn {
+    content: "adawd";
   }
 }
 
